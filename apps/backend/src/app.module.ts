@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AccountModule } from './account/account.module';
-import { PortfolioModule } from './portfolio/portfolio.module';
-import { StrategyModule } from './strategy/strategy.module';
+import { AccountModule } from './modules/account/account.module';
+import { PortfolioModule } from './modules/portfolio/portfolio.module';
+import { StrategyModule } from './modules/strategy/strategy.module';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { StrategyModule } from './strategy/strategy.module';
       database: 'pid',
       autoLoadEntities: true,
       synchronize: true,
+      namingStrategy: new SnakeNamingStrategy(),
     }),
     AccountModule,
     PortfolioModule,

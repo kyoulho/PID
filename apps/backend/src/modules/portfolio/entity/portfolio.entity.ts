@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PortfolioAsset } from './portfolio-asset.entity';
-import { Strategy } from '../strategy/strategy.entity';
+import { Strategy } from '../../strategy/entity/strategy.entity';
 
 @Entity()
 export class Portfolio {
@@ -31,8 +31,4 @@ export class Portfolio {
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
-
-  constructor() {
-    this.portfolioAssets = [];
-  }
 }
