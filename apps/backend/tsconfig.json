@@ -1,21 +1,14 @@
 {
+  "extends": "@pid/typescript-config/tsconfig.base.json", // 전역 설정을 상속
   "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "outDir": "./dist", // 컴파일된 파일을 저장할 디렉토리
+    "rootDir": "./src", // 소스 파일의 루트 디렉토리
+    "experimentalDecorators": true, // 데코레이터 사용을 허용
+    "emitDecoratorMetadata": true // 데코레이터 메타데이터를 런타임에 생성
+  },
+  "include": [
+    "src/**/*",
+    "test/**/*"
+  ],
+  "exclude": ["node_modules", "dist"] // 컴파일에서 제외할 디렉토리
 }

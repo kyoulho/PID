@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // ES2020 표준으로 컴파일
+    "module": "ESNext", // 최신 ES 모듈 시스템을 사용
+    "lib": ["dom", "es2020"], // DOM 및 ES2020 기능을 포함
+    "strict": true, // 엄격한 타입 검사를 활성화
+    "esModuleInterop": true, // CommonJS와 ES 모듈 간의 호환성을 개선
+    "skipLibCheck": true, // 라이브러리 타입 검사를 건너뛰어 컴파일 속도를 향상
+    "forceConsistentCasingInFileNames": true, // 파일 이름 대소문자 일치를 강제
+    "moduleResolution": "node", // Node.js 방식의 모듈 해석
+    "resolveJsonModule": true, // JSON 모듈을 import할 수 있도록 설정
+    "jsx": "react-jsx", // React 17+에서 사용할 JSX 변환 설정
+    "baseUrl": ".", // 기본 모듈 경로를 프로젝트 루트로 설정
+    "paths": {
+      "@nestjs/*": ["node_modules/@nestjs/*"], // NestJS 모듈 경로 설정
+      "@/*": ["src/*"] // 프로젝트 내 절대 경로 설정 (선택 사항)
+    }
+  }
+}

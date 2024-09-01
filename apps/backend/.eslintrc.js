@@ -1,25 +1,21 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
-    sourceType: 'module',
-  },
-  plugins: ['@typescript-eslint/eslint-plugin'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
-  root: true,
-  env: {
-    node: true,
-    jest: true,
-  },
-  ignorePatterns: ['.eslintrc.js'],
-  rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-  },
+    extends: [
+        "eslint:recommended",
+        "plugin:prettier/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:nestjs/recommended"
+    ],
+    parser: "@typescript-eslint/parser",
+    plugins: ["@typescript-eslint", "nestjs"],
+    parserOptions: {
+        project: 'tsconfig.json',
+        ecmaVersion: 2020,
+        tsconfigRootDir: __dirname,
+        sourceType: "module"
+    },
+    env: {
+        node: true,
+        es6: true,
+        jest: true, // 테스트 환경만 로컬에서 추가
+    }
 };
