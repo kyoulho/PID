@@ -8,14 +8,15 @@ module.exports = {
     parser: "@typescript-eslint/parser",
     plugins: ["@typescript-eslint", "nestjs"],
     parserOptions: {
-        project: 'tsconfig.json',
         ecmaVersion: 2020,
+        project: './tsconfig.json',
         tsconfigRootDir: __dirname,
         sourceType: "module"
     },
     env: {
         node: true,
         es6: true,
-        jest: true, // 테스트 환경만 로컬에서 추가
-    }
+        jest: true
+    },
+    ignorePatterns: [".eslintrc.js"]  // 이 파일을 ESLint 검사 대상에서 제외
 };
