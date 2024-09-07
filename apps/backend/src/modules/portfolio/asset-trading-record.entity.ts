@@ -5,8 +5,9 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+import { UUID } from '@pid/shared';
+import { Account } from '../account';
 import { PortfolioAsset } from './portfolio-asset.entity';
-import { Account } from '../../account/account.entity';
 
 export enum TradingType {
   BUY = 'BUY',
@@ -16,7 +17,7 @@ export enum TradingType {
 @Entity()
 export class AssetTradingRecord {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: UUID;
 
   @ManyToOne(() => Account, {
     lazy: true,

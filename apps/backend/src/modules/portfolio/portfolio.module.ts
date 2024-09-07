@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Portfolio } from './entity/portfolio.entity';
-import { PortfolioAsset } from './entity/portfolio-asset.entity';
-import { AssetTradingRecord } from './entity/asset-trading-record.entity';
-import { AssetDividendRecord } from './entity/asset-dividend-record.entity';
+import { Portfolio } from './portfolio.entity';
+import { PortfolioAsset } from './portfolio-asset.entity';
+import { AssetTradingRecord } from './asset-trading-record.entity';
+import { AssetDividendRecord } from './asset-dividend-record.entity';
 
 @Module({
   imports: [

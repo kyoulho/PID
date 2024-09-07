@@ -6,11 +6,12 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { AccountType } from './account-type.entity';
+import { UUID } from '@pid/shared';
 
 @Entity()
 export class Account {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: UUID;
 
   @Column({ type: 'varchar', length: 200 })
   name: string;

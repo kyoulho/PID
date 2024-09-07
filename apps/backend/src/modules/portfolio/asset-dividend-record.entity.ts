@@ -5,13 +5,14 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Account } from '../../account/account.entity';
+import { Account } from '../account';
 import { PortfolioAsset } from './portfolio-asset.entity';
+import { UUID } from '@pid/shared';
 
 @Entity()
 export class AssetDividendRecord {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: UUID;
 
   @ManyToOne(() => PortfolioAsset, (portfolioAsset) => portfolioAsset.records, {
     nullable: false,

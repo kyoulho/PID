@@ -7,12 +7,13 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PortfolioAsset } from './portfolio-asset.entity';
-import { Strategy } from '../../strategy/entity/strategy.entity';
+import { Strategy } from '../strategy';
+import { UUID } from '@pid/shared';
 
 @Entity()
 export class Portfolio {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: UUID;
 
   @ManyToOne(() => Strategy, { lazy: true, nullable: false })
   @JoinColumn({ name: 'strategy_id' })

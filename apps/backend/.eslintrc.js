@@ -6,7 +6,22 @@ module.exports = {
         "plugin:nestjs/recommended"
     ],
     parser: "@typescript-eslint/parser",
-    plugins: ["@typescript-eslint", "nestjs"],
+    plugins: [
+        "@typescript-eslint",
+        "nestjs",
+        'boundaries'
+    ],
+    rules: {
+        'boundaries/element-types': [2, {
+            default: 'disallow',
+            rules: [
+                {
+                    from: 'Portfolio.entity/*',
+                    allow: ['Portfolio.entity/index.ts'],
+                },
+            ],
+        }],
+    },
     parserOptions: {
         ecmaVersion: 2020,
         project: './tsconfig.json',

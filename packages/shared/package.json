@@ -7,5 +7,8 @@
     "build": "tsc --build",
     "dev": "tsc --build --watch",
     "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "class-validator": "^0.14.1"
   }
 }

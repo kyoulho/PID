@@ -1,23 +1,21 @@
 {
   "compilerOptions": {
-    "target": "ES2017",                  // JavaScript 타겟 버전
-    "module": "commonjs",                // 모듈 시스템
-    "declaration": true,                 // 타입 선언 파일(.d.ts) 생성
-    "declarationMap": true,              // 선언 맵 파일 생성
-    "sourceMap": true,                   // 소스맵 생성 (디버깅 용이)
-    "outDir": "./dist",                  // 컴파일된 파일의 출력 디렉토리
-    "rootDir": "./src",                  // 소스 파일의 루트 디렉토리
-    "composite": true,                   // 프로젝트 참조 활성화
-    "strict": true,                      // 엄격한 타입 검사
-    "esModuleInterop": true,             // ES 모듈과 CommonJS 모듈 간의 호환성
-    "skipLibCheck": true,                // 라이브러리 체크 생략
-    "forceConsistentCasingInFileNames": true, // 파일 이름 대소문자 일관성 검사
-    "moduleResolution": "node",          // Node.js 모듈 해석 방법 사용
-    "baseUrl": "./src",                  // 경로 기본 설정
-    "paths": {
-      "@shared/*": ["./*"]               // shared 디렉토리 내의 경로 설정
-    }
+    "outDir": "./dist",
+    // 컴파일된 파일을 저장할 디렉토리
+    "rootDir": "./src",
+    // 소스 파일의 루트 디렉토리
+    "experimentalDecorators": true,
+    // 데코레이터 사용을 허용
+    "emitDecoratorMetadata": true,
+    // 데코레이터 메타데이터를 런타임에 생성
+    "baseUrl": "src",
   },
-  "include": ["src/**/*"],               // 소스 파일 포함 경로
-  "exclude": ["node_modules", "dist"]    // 컴파일 제외 경로
+  "include": [
+    "src/**/*",
+    "test/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

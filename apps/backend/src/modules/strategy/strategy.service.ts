@@ -1,9 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { StrategyDTO } from './dto/strategy.dto';
-import { Strategy } from './entity/strategy.entity';
-import { UUID } from '@pid/shared';
+import { Strategy } from './strategy.entity';
+import {
+  UUID,
+  GetStrategyDTO,
+  CreateStrategyDTO,
+  UpdateStrategyDTO,
+} from '@pid/shared';
 
 @Injectable()
 export class StrategyService {
@@ -12,28 +16,36 @@ export class StrategyService {
     private readonly strategyRepository: Repository<Strategy>,
   ) {}
 
-  async getStrategies(): Promise<StrategyDTO[]> {
+  async getStrategies(): Promise<GetStrategyDTO[]> {
     return await this.strategyRepository.find();
   }
 
-  async getStrategyById(id: UUID): Promise<StrategyDTO> {
+  async getStrategyById(id: UUID): Promise<GetStrategyDTO> {
     return this.strategyRepository.findOneByOrFail({ id });
   }
 
-  async createStrategy(strategyDTO: StrategyDTO): Promise<StrategyDTO> {
+  async createStrategy(
+    strategyDTO: CreateStrategyDTO,
+  ): Promise<GetStrategyDTO> {
     const strategy = this.strategyRepository.create(strategyDTO);
     return this.strategyRepository.save(strategy);
   }
 
   async updateStrategy(
     id: string,
-    strategyDTO: StrategyDTO,
-  ): Promise<StrategyDTO> {
+    strategyDTO: UpdateStrategyDTO,
+  ): Promise<GetStrategyDTO> {
     await this.strategyRepository.update(id, strategyDTO);
     return this.getStrategyById(id);
   }
 
   async deleteStrategy(id: string): Promise<void> {
-    await this.strategyRepository.delete(id);
+    const result = await this.strategyRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(
+        `ID: ${id}에 해당하는 전략을 찾을 수 없습니다.`,
+      );
+    }
   }
 }
