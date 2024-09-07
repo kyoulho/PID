@@ -1,7 +1,7 @@
 import { IsEnum, IsOptional, IsString } from 'class-validator';
-import {UUID } from './uuid';
+import {UUID } from '../types/uuid';
 import { PartialType } from '@nestjs/swagger';
-import {RebalanceFrequency} from "./rebalanceFrequency";
+import {RebalanceFrequency} from "../enum/rebalanceFrequency";
 
 export class CreateStrategyDTO {
   @IsString()

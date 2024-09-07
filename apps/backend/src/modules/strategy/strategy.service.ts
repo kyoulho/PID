@@ -7,7 +7,7 @@ import {
   GetStrategyDTO,
   CreateStrategyDTO,
   UpdateStrategyDTO,
-} from '@pid/shared';
+} from '@pid/shared/dist';
 
 @Injectable()
 export class StrategyService {

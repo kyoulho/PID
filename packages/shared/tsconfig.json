@@ -11,11 +11,12 @@
     "baseUrl": "src",
   },
   "include": [
-    "src/**/*",
-    "test/**/*"
+    "src/**/*",                   // src 디렉토리 하위 파일 포함
+    "src/index.ts"
+    // 루트에 있는 index.ts를 포함
   ],
   "exclude": [
-    "node_modules",
-    "dist"
+    "node_modules",               // 빌드에서 제외
+    "dist"                        // 빌드된 파일 제외
   ]
 }

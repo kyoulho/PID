@@ -21,7 +21,7 @@ import {
   GetStrategyDTO,
   CreateStrategyDTO,
   UpdateStrategyDTO,
-} from '@pid/shared';
+} from '@pid/shared/dist';
 
 @ApiTags('strategies')
 @Controller('/api/strategies')
