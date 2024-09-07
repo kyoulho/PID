@@ -6,7 +6,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { AccountType } from './account-type.entity';
-import { UUID } from '@pid/shared';
+import { GetAccountDTO, UUID } from '@pid/shared';
 
 @Entity()
 export class Account {
@@ -17,7 +17,7 @@ export class Account {
   name: string;
 
   @Column({ type: 'varchar', length: 200, nullable: true })
-  description: string;
+  description?: string;
 
   @Column({ type: 'varchar', length: 200 })
   issuer: string;
@@ -39,4 +39,18 @@ export class Account {
     nullable: false,
   })
   accountType: AccountType;
+
+  toDTO(): GetAccountDTO {
+    return {
+      id: this.id,
+      name: this.name,
+      description: this.description,
+      issuer: this.issuer,
+      number: this.number,
+      interestRate: this.interestRate,
+      withdrawalLimit: this.withdrawalLimit,
+      createdAt: this.createdAt,
+      accountTypeName: this.accountType.name,
+    };
+  }
 }

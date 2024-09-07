@@ -5,7 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { UUID } from '@pid/shared/dist';
+import { UUID } from '@pid/shared';
 import { Account } from '../account';
 import { PortfolioAsset } from './portfolio-asset.entity';
 

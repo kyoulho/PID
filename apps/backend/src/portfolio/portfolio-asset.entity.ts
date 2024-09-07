@@ -9,11 +9,12 @@ import {
 import { Portfolio } from './portfolio.entity';
 import { AssetTradingRecord } from './asset-trading-record.entity';
 import { AssetDividendRecord } from './asset-dividend-record.entity';
+import { UUID } from '@pid/shared';
 
 @Entity()
 export class PortfolioAsset {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: UUID;
 
   @ManyToOne(() => Portfolio, (portfolio) => portfolio.portfolioAssets, {
     lazy: true,

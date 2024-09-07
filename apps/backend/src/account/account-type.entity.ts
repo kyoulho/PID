@@ -4,11 +4,12 @@ import {
   Column,
   CreateDateColumn,
 } from 'typeorm';
+import { UUID } from '@pid/shared';
 
 @Entity()
 export class AccountType {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: UUID;
 
   @Column({ type: 'varchar', length: 200 })
   name: string;

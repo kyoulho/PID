@@ -1,9 +1,9 @@
-import { IsEnum, IsOptional, IsString } from 'class-validator';
-import {UUID } from '../types/uuid';
-import { PartialType } from '@nestjs/swagger';
-import {RebalanceFrequency} from "../enum/rebalanceFrequency";
+import { IsEnum, IsOptional, IsString } from "class-validator";
+import { UUID } from "../types/uuid";
+import { RebalanceFrequency } from "../enum/rebalanceFrequency";
 
-export class CreateStrategyDTO {
+// 공통 DTO 필드를 포함하는 Base DTO
+class BaseStrategyDTO {
   @IsString()
   name: string;
 
@@ -15,18 +15,23 @@ export class CreateStrategyDTO {
   rebalanceFrequency: RebalanceFrequency;
 }
 
-export class GetStrategyDTO {
+// Create DTO
+export class CreateStrategyDTO extends BaseStrategyDTO {}
+
+// Get DTO
+export class GetStrategyDTO extends BaseStrategyDTO {
   id: UUID;
+}
 
+// Update DTO
+export class UpdateStrategyDTO {
   @IsString()
-  name: string;
+  name?: string;
 
   @IsOptional()
   @IsString()
   description?: string;
 
   @IsEnum(RebalanceFrequency)
-  rebalanceFrequency: RebalanceFrequency;
+  rebalanceFrequency?: RebalanceFrequency;
 }
-
-export class UpdateStrategyDTO extends PartialType(CreateStrategyDTO) {}

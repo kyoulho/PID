@@ -1,19 +1,19 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Strategy } from './strategy.entity';
 import {
-  UUID,
-  GetStrategyDTO,
   CreateStrategyDTO,
+  GetStrategyDTO,
   UpdateStrategyDTO,
-} from '@pid/shared/dist';
+  UUID,
+} from '@pid/shared';
+import { CustomRepository } from '../common/custom.repository';
 
 @Injectable()
 export class StrategyService {
   constructor(
     @InjectRepository(Strategy)
-    private readonly strategyRepository: Repository<Strategy>,
+    private readonly strategyRepository: CustomRepository<Strategy>,
   ) {}
 
   async getStrategies(): Promise<GetStrategyDTO[]> {
