@@ -1,14 +1,22 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    // 컴파일된 파일을 저장할 디렉토리
-    "rootDir": "./src",
-    // 소스 파일의 루트 디렉토리
-    "experimentalDecorators": true,
-    // 데코레이터 사용을 허용
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
     "emitDecoratorMetadata": true,
-    // 데코레이터 메타데이터를 런타임에 생성
-    "baseUrl": "src",
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
   },
   "include": [
     "src/**/*",

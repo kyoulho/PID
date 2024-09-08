@@ -9,7 +9,6 @@ import {
 } from '@pid/shared';
 import { CustomRepository } from '../common/custom.repository';
 import { AccountType } from './account-type.entity';
-import { DeepPartial } from 'typeorm/common/DeepPartial';
 
 @Injectable()
 export class AccountService {
@@ -63,18 +62,23 @@ export class AccountService {
   ): Promise<GetAccountDTO> {
     const { accountTypeId, ...updateData } = updateAccountDTO;
 
-    const newAccount: DeepPartial<Account> = { ...updateData };
+    // 기존 계좌를 조회 (accountType 관계 로드 포함)
+    const account = await this.accountRepository.findOneOrFail({
+      where: { id },
+      relations: ['accountType'],
+    });
 
-    // accountTypeId가 존재할 경우 accountType을 조회하여 data에 추가
-    if (accountTypeId) {
-      newAccount.accountType = await this.accountTypeRepository.findOneOrFail({
+    // 업데이트할 데이터 병합
+    Object.assign(account, updateData);
+
+    // accountTypeId가 존재할 경우 accountType을 조회하여 추가
+    if (accountTypeId && account.accountType.id !== accountTypeId) {
+      account.accountType = await this.accountTypeRepository.findOneOrFail({
         where: { id: accountTypeId },
       });
     }
-
-    await this.accountRepository.update(id, newAccount);
-
-    return this.getAccountById(id);
+    const updatedAccount = await this.accountRepository.save(account);
+    return updatedAccount.toDTO();
   }
 
   // 계좌 삭제

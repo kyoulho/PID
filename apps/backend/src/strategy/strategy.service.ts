@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Strategy } from './strategy.entity';
 import {
@@ -7,7 +7,7 @@ import {
   UpdateStrategyDTO,
   UUID,
 } from '@pid/shared';
-import { CustomRepository } from '../common/custom.repository';
+import { CustomRepository } from 'common/custom.repository';
 
 @Injectable()
 export class StrategyService {
@@ -35,17 +35,12 @@ export class StrategyService {
     id: string,
     strategyDTO: UpdateStrategyDTO,
   ): Promise<GetStrategyDTO> {
-    await this.strategyRepository.update(id, strategyDTO);
-    return this.getStrategyById(id);
+    const strategy = await this.strategyRepository.findOneByOrFail({ id });
+    Object.assign(strategy, strategyDTO);
+    return await this.strategyRepository.save(strategy);
   }
 
   async deleteStrategy(id: string): Promise<void> {
-    const result = await this.strategyRepository.delete(id);
-
-    if (result.affected === 0) {
-      throw new NotFoundException(
-        `ID: ${id}에 해당하는 전략을 찾을 수 없습니다.`,
-      );
-    }
+    return await this.strategyRepository.deleteOrFail(id);
   }
 }
