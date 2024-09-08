@@ -1,5 +1,3 @@
-import { Button } from "@/components/atoms/Button";
-
-export default function Home() {
-  return <Button />;
+export default function Page() {
+  return <div>Hello, this is a server-side rendered page.</div>;
 }
