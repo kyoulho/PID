@@ -1,11 +1,15 @@
+import Image from "next/image";
+import backgroundImg from "../../../../public/images/background.webp";
+import { Button } from "@mui/material";
+
 export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="flex shadow-lg">
         {/* Left Side - Image Section */}
-        <div className="hidden md:flex bg-blue-500 items-center justify-center rounded-l-lg p-8">
-          <img
-            src="../../public/images/background.webp"
+        <div className="md:flex items-center justify-center rounded-l-lg p-8">
+          <Image
+            src={backgroundImg}
             alt="Login Illustration"
             className="w-full h-auto"
           />
@@ -13,10 +17,9 @@ export default function LoginPage() {
 
         {/* Right Side - Form Section */}
         <div className="w-full md:w-96 p-8 bg-white rounded-lg">
-          <h1 className="text-3xl font-bold text-center mb-6">Welcome Back</h1>
-          <p className="text-center text-gray-600 mb-8">
-            Please sign in to your account
-          </p>
+          <h1 className="text-3xl font-bold text-center mb-6">
+            Paradise <br /> Investment Diary
+          </h1>
 
           <form>
             {/* Email Input */}
@@ -55,26 +58,13 @@ export default function LoginPage() {
             </div>
 
             {/* Login Button */}
-            <button
+            <Button
               type="submit"
               className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-md transition-colors"
             >
               로그인
-            </button>
+            </Button>
           </form>
-
-          {/* Divider */}
-          <div className="mt-8 flex items-center justify-center">
-            <span className="h-px bg-gray-300 w-1/4"></span>
-            <span className="text-gray-400 px-3 text-sm">또는</span>
-            <span className="h-px bg-gray-300 w-1/4"></span>
-          </div>
-
-          {/* Sign in with Google */}
-          <button className="mt-4 w-full flex items-center justify-center border border-gray-300 py-2 rounded-md text-gray-600 hover:bg-gray-100">
-            <img src="/google-icon.svg" alt="Google" className="w-5 h-5 mr-2" />
-            구글 계정으로 로그인
-          </button>
 
           {/* Signup */}
           <div className="mt-6 text-center">

@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import NavItem from "@/components/atoms/NavItem";
 import clsx from "clsx";
 
 type NavGroupProps = {
   label: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   items: { label: string; href: string }[];
 };
 
