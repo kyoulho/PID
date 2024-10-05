@@ -4,7 +4,7 @@ import {
   Column,
   CreateDateColumn,
 } from 'typeorm';
-import { UUID } from '@mid/shared';
+import { UUID } from '@mid/shared/dist/types';
 
 @Entity()
 export class AccountType {

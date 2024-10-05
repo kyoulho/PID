@@ -1,17 +1,12 @@
-import { IsEnum, IsOptional, IsString } from "class-validator";
-import { UUID } from "../types/uuid";
-import { RebalanceFrequency } from "../enum/rebalanceFrequency";
+import { UUID } from "../types";
+import { RebalanceFrequency } from "../enum";
 
 // 공통 DTO 필드를 포함하는 Base DTO
 class BaseStrategyDTO {
-  @IsString()
   name: string;
 
-  @IsOptional()
-  @IsString()
   description?: string;
 
-  @IsEnum(RebalanceFrequency)
   rebalanceFrequency: RebalanceFrequency;
 }
 
@@ -25,13 +20,9 @@ export class GetStrategyDTO extends BaseStrategyDTO {
 
 // Update DTO
 export class UpdateStrategyDTO {
-  @IsString()
   name?: string;
 
-  @IsOptional()
-  @IsString()
   description?: string;
 
-  @IsEnum(RebalanceFrequency)
   rebalanceFrequency?: RebalanceFrequency;
 }
