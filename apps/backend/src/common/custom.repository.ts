@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { FindOptionsWhere } from 'typeorm/find-options/FindOptionsWhere';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
-import { UUID } from '@pid/shared';
+import { UUID } from '@mid/shared';
 import { DeepPartial } from 'typeorm/common/DeepPartial';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 

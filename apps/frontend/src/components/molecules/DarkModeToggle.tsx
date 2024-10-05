@@ -1,7 +1,6 @@
 "use client";
 
 import { useThemeStore } from "@/store/ThemeStore";
-import { Button } from "@/components/atoms/Button";
 import { useEffect } from "react";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 
@@ -14,8 +13,8 @@ export default function DarkModeToggle() {
   }, [isDarkMode]);
 
   return (
-    <Button onClick={toggleDarkMode}>
+    <button onClick={toggleDarkMode}>
       <DarkModeIcon fontSize="large" />
-    </Button>
+    </button>
   );
 }

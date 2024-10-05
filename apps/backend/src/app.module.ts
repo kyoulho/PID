@@ -13,7 +13,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
       port: 5432,
       username: 'postgres',
       password: 'postgres',
-      database: 'pid',
+      database: 'mid',
       autoLoadEntities: true,
       synchronize: true,
       namingStrategy: new SnakeNamingStrategy(),

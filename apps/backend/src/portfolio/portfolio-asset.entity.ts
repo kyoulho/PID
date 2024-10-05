@@ -9,7 +9,7 @@ import {
 import { Portfolio } from './portfolio.entity';
 import { AssetTradingRecord } from './asset-trading-record.entity';
 import { AssetDividendRecord } from './asset-dividend-record.entity';
-import { UUID } from '@pid/shared';
+import { UUID } from '@mid/shared';
 
 @Entity()
 export class PortfolioAsset {

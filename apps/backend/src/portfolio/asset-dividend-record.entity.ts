@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Account } from '../account';
 import { PortfolioAsset } from './portfolio-asset.entity';
-import { UUID } from '@pid/shared';
+import { UUID } from '@mid/shared';
 
 @Entity()
 export class AssetDividendRecord {

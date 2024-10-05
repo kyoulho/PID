@@ -4,7 +4,7 @@ import {
   Column,
   CreateDateColumn,
 } from 'typeorm';
-import { UUID, RebalanceFrequency } from '@pid/shared';
+import { UUID, RebalanceFrequency } from '@mid/shared';
 
 @Entity()
 export class Strategy {

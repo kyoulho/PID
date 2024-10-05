@@ -6,7 +6,7 @@ import {
   GetStrategyDTO,
   UpdateStrategyDTO,
   UUID,
-} from '@pid/shared';
+} from '@mid/shared';
 import { CustomRepository } from 'common/custom.repository';
 
 @Injectable()

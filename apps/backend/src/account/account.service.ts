@@ -6,7 +6,7 @@ import {
   GetAccountDTO,
   UpdateAccountDTO,
   UUID,
-} from '@pid/shared';
+} from '@mid/shared';
 import { CustomRepository } from '../common/custom.repository';
 import { AccountType } from './account-type.entity';
 

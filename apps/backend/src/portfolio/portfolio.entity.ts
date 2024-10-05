@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { PortfolioAsset } from './portfolio-asset.entity';
 import { Strategy } from '../strategy';
-import { UUID } from '@pid/shared';
+import { UUID } from '@mid/shared';
 
 @Entity()
 export class Portfolio {

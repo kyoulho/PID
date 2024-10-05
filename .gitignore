@@ -53,3 +53,4 @@ yarn-error.log*
 *.pem
 /package-lock.json
 /db/
+/database/

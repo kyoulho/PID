@@ -15,7 +15,7 @@ import {
   GetAccountDTO,
   UpdateAccountDTO,
   UUID,
-} from '@pid/shared';
+} from '@mid/shared';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 
 @ApiTags('account')
