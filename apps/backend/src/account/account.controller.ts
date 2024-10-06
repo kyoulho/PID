@@ -1,13 +1,11 @@
 import {
+  Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Put,
-  Delete,
-  Param,
-  Body,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { AccountService } from './account.service';
 import {
@@ -16,10 +14,10 @@ import {
   UpdateAccountDTO,
   UUID,
 } from '@mid/shared';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('account')
-@Controller('/api/accounts') // 기본 경로 설정
+@ApiTags('Account')
+@Controller('/api/accounts')
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
@@ -32,7 +30,6 @@ export class AccountController {
     type: GetAccountDTO,
   })
   @ApiBody({ type: CreateAccountDTO })
-  @UsePipes(new ValidationPipe({ transform: true })) // 유효성 검사 활성화
   async createAccount(
     @Body() createAccountDTO: CreateAccountDTO,
   ): Promise<GetAccountDTO> {
@@ -64,7 +61,6 @@ export class AccountController {
     type: GetAccountDTO,
   })
   @ApiBody({ type: UpdateAccountDTO })
-  @UsePipes(new ValidationPipe({ transform: true })) // 유효성 검사 활성화
   async updateAccount(
     @Param('id') id: UUID,
     @Body() updateAccountDTO: UpdateAccountDTO,

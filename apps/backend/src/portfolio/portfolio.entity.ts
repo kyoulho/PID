@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PortfolioAsset } from './portfolio-asset.entity';
-import { Strategy } from '../strategy';
 import { UUID } from '@mid/shared';
+import { Strategy } from '../strategy/strategy.entity';
 
 @Entity()
 export class Portfolio {

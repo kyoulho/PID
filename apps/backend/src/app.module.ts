@@ -4,6 +4,7 @@ import { AccountModule } from './account/account.module';
 import { PortfolioModule } from './portfolio/portfolio.module';
 import { StrategyModule } from './strategy/strategy.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
     AccountModule,
     PortfolioModule,
     StrategyModule,
+    UserModule,
   ],
 })
 export class AppModule {}

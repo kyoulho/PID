@@ -8,9 +8,10 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@mid/shared": "workspace:*",
     "@nestjs/cli": "^10.4.5",
     "@nestjs/testing": "^10.4.1",
-    "@mid/shared": "workspace:*",
+    "@types/bcrypt": "^5.0.2",
     "@typescript-eslint/eslint-plugin": "^8.3.0",
     "@typescript-eslint/parser": "^8.3.0",
     "eslint": "^8.57.0",

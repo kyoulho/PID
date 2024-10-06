@@ -1,28 +1,36 @@
-import { UUID } from "../types";
+import { ApiProperty, ApiPropertyOptional, PartialType } from "@nestjs/swagger";
+import { IsString, IsOptional, IsEnum } from "class-validator";
 import { RebalanceFrequency } from "../enum";
+import { UUID } from "../types";
 
-// 공통 DTO 필드를 포함하는 Base DTO
 class BaseStrategyDTO {
+  @ApiProperty({
+    description: "전략 이름",
+    example: "Growth Strategy",
+  })
+  @IsString()
   name: string;
 
+  @ApiPropertyOptional({
+    description: "전략 설명",
+    example: "This strategy focuses on high-growth stocks.",
+  })
+  @IsOptional()
+  @IsString()
   description?: string;
 
+  @ApiProperty({
+    description: "리밸런싱 빈도",
+    example: RebalanceFrequency.MONTHLY,
+    enum: RebalanceFrequency,
+  })
+  @IsEnum(RebalanceFrequency)
   rebalanceFrequency: RebalanceFrequency;
 }
-
-// Create DTO
 export class CreateStrategyDTO extends BaseStrategyDTO {}
 
-// Get DTO
 export class GetStrategyDTO extends BaseStrategyDTO {
   id: UUID;
 }
 
-// Update DTO
-export class UpdateStrategyDTO {
-  name?: string;
-
-  description?: string;
-
-  rebalanceFrequency?: RebalanceFrequency;
-}
+export class UpdateStrategyDTO extends PartialType(BaseStrategyDTO) {}

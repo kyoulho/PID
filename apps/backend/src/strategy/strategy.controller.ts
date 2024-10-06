@@ -1,25 +1,23 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Param,
-  Put,
+  Controller,
   Delete,
-  UsePipes,
-  ValidationPipe,
+  Get,
+  Param,
+  Post,
+  Put,
 } from '@nestjs/common';
 import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
   ApiBody,
+  ApiOperation,
   ApiParam,
+  ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { StrategyService } from './strategy.service';
 import {
-  GetStrategyDTO,
   CreateStrategyDTO,
+  GetStrategyDTO,
   UpdateStrategyDTO,
 } from '@mid/shared';
 
@@ -77,7 +75,6 @@ export class StrategyController {
     type: GetStrategyDTO,
   })
   @ApiResponse({ status: 400, description: '잘못된 입력 데이터입니다.' })
-  @UsePipes(new ValidationPipe({ transform: true }))
   async createStrategy(
     @Body() strategyDTO: CreateStrategyDTO,
   ): Promise<GetStrategyDTO> {
@@ -96,7 +93,6 @@ export class StrategyController {
   })
   @ApiBody({ type: UpdateStrategyDTO, description: '업데이트할 전략 정보' })
   @ApiResponse({ status: 400, description: '잘못된 입력 데이터입니다.' })
-  @UsePipes(new ValidationPipe({ transform: true }))
   async updateStrategy(
     @Param('id') id: string,
     @Body() strategyDTO: UpdateStrategyDTO,

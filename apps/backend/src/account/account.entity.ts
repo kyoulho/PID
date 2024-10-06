@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { AccountType } from './account-type.entity';
 import { GetAccountDTO, UUID } from '@mid/shared';
+import { User } from '../user/user.entity';
 
 @Entity()
 export class Account {
@@ -39,6 +40,12 @@ export class Account {
     nullable: false,
   })
   accountType: AccountType;
+
+  @ManyToOne(() => User, {
+    eager: true,
+    nullable: false,
+  })
+  user: User;
 
   toDTO(): GetAccountDTO {
     return {
