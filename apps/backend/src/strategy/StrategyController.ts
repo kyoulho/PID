@@ -6,22 +6,27 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiOperation,
   ApiParam,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { StrategyService } from './strategy.service';
+import { StrategyService } from './StrategyService';
 import {
   CreateStrategyDTO,
   GetStrategyDTO,
   UpdateStrategyDTO,
 } from '@mid/shared';
+import { JwtAuthGuard } from '../auth/JwtAuthGuard';
+import { AdminGuard } from '../auth/admin-guard.service';
 
-@ApiTags('strategies')
+@ApiBearerAuth('Authorization')
+@ApiTags('전략')
 @Controller('/api/strategies')
 export class StrategyController {
   constructor(private readonly strategyService: StrategyService) {}
@@ -35,6 +40,7 @@ export class StrategyController {
     status: 200,
     type: [GetStrategyDTO],
   })
+  @UseGuards(JwtAuthGuard, AdminGuard)
   async getStrategies(): Promise<GetStrategyDTO[]> {
     return this.strategyService.getStrategies();
   }

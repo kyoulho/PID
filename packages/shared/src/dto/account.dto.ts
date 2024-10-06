@@ -1,6 +1,5 @@
 import { UUID } from "../types";
-import { PartialType } from "@nestjs/mapped-types";
-import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional, PartialType } from "@nestjs/swagger";
 import {
   IsNotEmpty,
   IsOptional,

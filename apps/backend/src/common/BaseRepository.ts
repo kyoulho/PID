@@ -1,21 +1,25 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { NotFoundException } from '@nestjs/common';
+import { EntityManager, Repository } from 'typeorm';
 import { FindOptionsWhere } from 'typeorm/find-options/FindOptionsWhere';
 import { FindOneOptions } from 'typeorm/find-options/FindOneOptions';
 import { UUID } from '@mid/shared';
 import { DeepPartial } from 'typeorm/common/DeepPartial';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
-@Injectable()
-export class CustomRepository<Entity> extends Repository<Entity> {
+export class BaseRepository<Entity> extends Repository<Entity> {
+  private readonly entityName: string;
+
+  constructor(entity, entityManager: EntityManager) {
+    super(entity, entityManager);
+    this.entityName = entity.name;
+  }
+
   async findOneByOrFail(
     where: FindOptionsWhere<Entity> | FindOptionsWhere<Entity>[],
   ): Promise<Entity> {
     const entity = await this.findOneBy(where);
     if (!entity) {
-      throw new NotFoundException(
-        `해당 조건에 맞는 리소스를 찾을 수 없습니다.`,
-      );
+      throw new NotFoundException(`${this.entityName} 를 찾을 수 없습니다.`);
     }
     return entity;
   }
@@ -23,9 +27,7 @@ export class CustomRepository<Entity> extends Repository<Entity> {
   async findOneOrFail(options: FindOneOptions<Entity>): Promise<Entity> {
     const entity = await this.findOne(options);
     if (!entity) {
-      throw new NotFoundException(
-        `해당 조건에 맞는 리소스를 찾을 수 없습니다.`,
-      );
+      throw new NotFoundException(`${this.entityName} 를 찾을 수 없습니다.`);
     }
     return entity;
   }
@@ -38,7 +40,7 @@ export class CustomRepository<Entity> extends Repository<Entity> {
 
     if (!entity) {
       throw new NotFoundException(
-        `ID ${id}에 해당하는 리소스를 찾을 수 없습니다.`,
+        `${this.entityName} 를 찾을 수 없습니다. ID: [${id}]`,
       );
     }
 
@@ -53,17 +55,15 @@ export class CustomRepository<Entity> extends Repository<Entity> {
 
     if (result.affected === 0) {
       throw new NotFoundException(
-        `ID ${id}에 해당하는 리소스를 찾을 수 없습니다.`,
+        `${this.entityName} 를 찾을 수 없습니다. ID: [${id}]`,
       );
     }
   }
 
-  async deleteOrFail(id: UUID): Promise<void> {
-    const result = await this.delete(id);
+  async deleteOrFail(findOption: FindOptionsWhere<Entity>): Promise<void> {
+    const result = await this.delete(findOption);
     if (result.affected === 0) {
-      throw new NotFoundException(
-        `ID ${id}에 해당하는 리소스를 찾을 수 없습니다.`,
-      );
+      throw new NotFoundException(`${this.entityName} 를 찾을 수 없습니다.`);
     }
   }
 }

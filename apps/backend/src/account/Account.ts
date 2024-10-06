@@ -1,13 +1,13 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  Entity,
   ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { AccountType } from './account-type.entity';
-import { GetAccountDTO, UUID } from '@mid/shared';
-import { User } from '../user/user.entity';
+import { AccountType } from './AccountType';
+import { UUID } from '@mid/shared';
+import { User } from '../user/User';
 
 @Entity()
 export class Account {
@@ -46,18 +46,4 @@ export class Account {
     nullable: false,
   })
   user: User;
-
-  toDTO(): GetAccountDTO {
-    return {
-      id: this.id,
-      name: this.name,
-      description: this.description,
-      issuer: this.issuer,
-      number: this.number,
-      interestRate: this.interestRate,
-      withdrawalLimit: this.withdrawalLimit,
-      accountTypeName: this.accountType.name,
-      createdAt: this.createdAt,
-    };
-  }
 }

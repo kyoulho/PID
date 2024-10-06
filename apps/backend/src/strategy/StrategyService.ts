@@ -1,20 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Strategy } from './strategy.entity';
 import {
   CreateStrategyDTO,
   GetStrategyDTO,
   UpdateStrategyDTO,
   UUID,
 } from '@mid/shared';
-import { CustomRepository } from 'common/custom.repository';
+import { StrategyRepository } from './StrategyRepository';
 
 @Injectable()
 export class StrategyService {
-  constructor(
-    @InjectRepository(Strategy)
-    private readonly strategyRepository: CustomRepository<Strategy>,
-  ) {}
+  constructor(private readonly strategyRepository: StrategyRepository) {}
 
   async getStrategies(): Promise<GetStrategyDTO[]> {
     return await this.strategyRepository.find();
@@ -41,6 +36,6 @@ export class StrategyService {
   }
 
   async deleteStrategy(id: string): Promise<void> {
-    return await this.strategyRepository.deleteOrFail(id);
+    return await this.strategyRepository.deleteOrFail({ id });
   }
 }

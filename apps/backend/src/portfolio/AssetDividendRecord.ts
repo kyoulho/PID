@@ -5,9 +5,9 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { PortfolioAsset } from './portfolio-asset.entity';
+import { PortfolioAsset } from './PortfolioAsset';
 import { UUID } from '@mid/shared';
-import { Account } from '../account/account.entity';
+import { Account } from '../account/Account';
 
 @Entity()
 export class AssetDividendRecord {

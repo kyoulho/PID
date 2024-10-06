@@ -6,8 +6,8 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { UUID } from '@mid/shared';
-import { PortfolioAsset } from './portfolio-asset.entity';
-import { Account } from '../account/account.entity';
+import { PortfolioAsset } from './PortfolioAsset';
+import { Account } from '../account/Account';
 
 export enum TradingType {
   BUY = 'BUY',

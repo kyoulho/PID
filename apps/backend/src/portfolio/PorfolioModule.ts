@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Portfolio } from './portfolio.entity';
-import { PortfolioAsset } from './portfolio-asset.entity';
-import { AssetTradingRecord } from './asset-trading-record.entity';
-import { AssetDividendRecord } from './asset-dividend-record.entity';
+import { Portfolio } from './Portfolio';
+import { PortfolioAsset } from './PortfolioAsset';
+import { AssetTradingRecord } from './AssetTradingRecord';
+import { AssetDividendRecord } from './AssetDividendRecord';
 
 @Module({
   imports: [
@@ -16,4 +16,4 @@ import { AssetDividendRecord } from './asset-dividend-record.entity';
   ],
   exports: [TypeOrmModule],
 })
-export class PortfolioModule {}
+export class PorfolioModule {}

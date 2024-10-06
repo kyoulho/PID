@@ -8,9 +8,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { User } from './user.entity';
-import { CreateUserDto, UpdateUserDto } from '@mid/shared';
+import { UserService } from './UserService';
 import {
   ApiTags,
   ApiOperation,
@@ -18,26 +16,26 @@ import {
   ApiParam,
   ApiBody,
 } from '@nestjs/swagger';
+import { CreateUserDTO, GetUserDTO, UpdateUserDTO } from '@mid/shared';
 
-@ApiTags('Users')
+@ApiTags('사용자')
 @Controller('/api/users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // 사용자 가입
   @Post()
   @ApiOperation({
-    summary: '사용자 가입',
+    summary: '사용자 생성',
     description: '새로운 사용자를 등록합니다.',
   })
   @ApiResponse({
     status: 201,
     description: '사용자가 성공적으로 생성되었습니다.',
-    type: User,
+    type: GetUserDTO,
   })
   @ApiResponse({ status: 409, description: '이미 사용 중인 이메일입니다.' })
-  @ApiBody({ type: CreateUserDto })
-  async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
+  @ApiBody({ type: CreateUserDTO })
+  async createUser(@Body() createUserDto: CreateUserDTO): Promise<GetUserDTO> {
     return this.userService.createUser(createUserDto);
   }
 
@@ -54,22 +52,21 @@ export class UserController {
   @ApiResponse({
     status: 200,
     description: '사용자 정보가 성공적으로 수정되었습니다.',
-    type: User,
+    type: GetUserDTO,
   })
   @ApiResponse({ status: 404, description: '사용자를 찾을 수 없습니다.' })
-  @ApiBody({ type: UpdateUserDto })
+  @ApiBody({ type: UpdateUserDTO })
   async updateUser(
     @Param('id') id: string,
-    @Body() updateUserDto: UpdateUserDto,
-  ): Promise<User> {
+    @Body() updateUserDto: UpdateUserDTO,
+  ): Promise<GetUserDTO> {
     return this.userService.updateUser(id, updateUserDto);
   }
 
-  // 사용자 탈퇴
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: '사용자 탈퇴',
+    summary: '사용자 삭제',
     description: '기존 사용자를 삭제합니다.',
   })
   @ApiParam({

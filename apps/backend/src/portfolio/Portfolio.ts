@@ -6,9 +6,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { PortfolioAsset } from './portfolio-asset.entity';
+import { PortfolioAsset } from './PortfolioAsset';
 import { UUID } from '@mid/shared';
-import { Strategy } from '../strategy/strategy.entity';
+import { Strategy } from '../strategy/Strategy';
 
 @Entity()
 export class Portfolio {

@@ -1,31 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Account } from './account.entity';
 import {
   CreateAccountDTO,
   GetAccountDTO,
   UpdateAccountDTO,
   UUID,
 } from '@mid/shared';
-import { CustomRepository } from '../common/custom.repository';
-import { AccountType } from './account-type.entity';
+import { AccountRepository } from './AccountRepository';
+import { AccountTypeRepository } from './AccountTypeRepository';
+import { Account } from './Account';
 
 @Injectable()
 export class AccountService {
   constructor(
-    @InjectRepository(Account)
-    private readonly accountRepository: CustomRepository<Account>,
-    @InjectRepository(AccountType)
-    private readonly accountTypeRepository: CustomRepository<AccountType>,
+    private readonly accountRepository: AccountRepository,
+    private readonly accountTypeRepository: AccountTypeRepository,
   ) {}
 
   // 계좌 생성
   async createAccount(
+    userId: UUID,
     createAccountDTO: CreateAccountDTO,
   ): Promise<GetAccountDTO> {
     const { accountTypeId, ...accountData } = createAccountDTO;
 
-    // accountTypeId로 AccountType 찾기
     const accountType = await this.accountTypeRepository.findOneByOrFail({
       id: accountTypeId,
     });
@@ -34,37 +31,40 @@ export class AccountService {
     const account = this.accountRepository.create({
       ...accountData,
       accountType,
+      user: { id: userId },
     });
 
     return await this.accountRepository
       .save(account)
-      .then((account) => account.toDTO());
+      .then((account) => AccountService.toGetAccountDTO(account));
   }
 
-  async getAccounts(): Promise<GetAccountDTO[]> {
+  async getAccounts(userId): Promise<GetAccountDTO[]> {
     const accounts = await this.accountRepository.find({
+      where: { user: { id: userId } },
       relations: ['accountType'],
     });
-    return accounts.map((account) => account.toDTO());
+    return accounts.map((account) => AccountService.toGetAccountDTO(account));
   }
 
-  async getAccountById(id: UUID): Promise<GetAccountDTO> {
+  async getAccountById(userId: UUID, accountId: UUID): Promise<GetAccountDTO> {
     const account = await this.accountRepository.findOneOrFail({
-      where: { id },
+      where: { id: accountId, user: { id: userId } },
       relations: ['accountType'],
     });
-    return account.toDTO();
+    return AccountService.toGetAccountDTO(account);
   }
 
   async updateAccount(
-    id: UUID,
+    userId: UUID,
+    accountId: UUID,
     updateAccountDTO: UpdateAccountDTO,
   ): Promise<GetAccountDTO> {
     const { accountTypeId, ...updateData } = updateAccountDTO;
 
     // 기존 계좌를 조회 (accountType 관계 로드 포함)
     const account = await this.accountRepository.findOneOrFail({
-      where: { id },
+      where: { id: accountId, user: { id: userId } },
       relations: ['accountType'],
     });
 
@@ -78,11 +78,29 @@ export class AccountService {
       });
     }
     const updatedAccount = await this.accountRepository.save(account);
-    return updatedAccount.toDTO();
+
+    return AccountService.toGetAccountDTO(updatedAccount);
   }
 
   // 계좌 삭제
-  async deleteAccount(id: string): Promise<void> {
-    await this.accountRepository.deleteOrFail(id);
+  async deleteAccount(userId: string, accountId: UUID): Promise<void> {
+    await this.accountRepository.deleteOrFail({
+      user: { id: userId },
+      id: accountId,
+    });
+  }
+
+  private static toGetAccountDTO(account: Account) {
+    return {
+      id: account.id,
+      name: account.name,
+      description: account.description,
+      issuer: account.issuer,
+      number: account.number,
+      interestRate: account.interestRate,
+      withdrawalLimit: account.withdrawalLimit,
+      accountTypeName: account.accountType.name,
+      createdAt: account.createdAt,
+    };
   }
 }
