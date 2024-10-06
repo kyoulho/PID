@@ -56,8 +56,8 @@ export class Account {
       number: this.number,
       interestRate: this.interestRate,
       withdrawalLimit: this.withdrawalLimit,
-      createdAt: this.createdAt,
       accountTypeName: this.accountType.name,
+      createdAt: this.createdAt,
     };
   }
 }

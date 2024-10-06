@@ -1,6 +1,7 @@
-import { ApiProperty, PartialType } from "@nestjs/swagger";
+import { ApiProperty } from "@nestjs/swagger";
 import { IsEmail, IsOptional, IsString, Length } from "class-validator";
 import { Email, PhoneNumber, UUID } from "../types";
+import { PartialType } from "@nestjs/mapped-types";
 
 class BaseUserDto {
   @ApiProperty({

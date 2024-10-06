@@ -1,5 +1,6 @@
 import { UUID } from "../types";
-import { ApiProperty, ApiPropertyOptional, PartialType } from "@nestjs/swagger";
+import { PartialType } from "@nestjs/mapped-types";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import {
   IsNotEmpty,
   IsOptional,
@@ -8,7 +9,7 @@ import {
   IsUUID,
 } from "class-validator";
 
-export class CreateAccountDTO {
+export class BaseAccountDTO {
   @ApiProperty({
     description: "계좌 이름",
     example: "My Savings Account",
@@ -56,7 +57,8 @@ export class CreateAccountDTO {
   @IsNumber()
   @IsNotEmpty()
   withdrawalLimit: number;
-
+}
+export class CreateAccountDTO extends BaseAccountDTO {
   @ApiProperty({
     description: "계좌 유형 ID",
     example: "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
@@ -65,10 +67,9 @@ export class CreateAccountDTO {
   @IsNotEmpty()
   accountTypeId: UUID;
 }
-
 export class UpdateAccountDTO extends PartialType(CreateAccountDTO) {}
 
-export class GetAccountDTO extends CreateAccountDTO {
+export class GetAccountDTO extends BaseAccountDTO {
   @ApiProperty({
     description: "계좌 고유 ID",
     example: "a1b2c3d4-e5f6-7890-1234-56789abcdef0",

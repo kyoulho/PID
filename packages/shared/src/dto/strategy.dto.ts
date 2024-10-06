@@ -1,7 +1,8 @@
-import { ApiProperty, ApiPropertyOptional, PartialType } from "@nestjs/swagger";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { IsString, IsOptional, IsEnum } from "class-validator";
 import { RebalanceFrequency } from "../enum";
 import { UUID } from "../types";
+import { PartialType } from "@nestjs/mapped-types";
 
 class BaseStrategyDTO {
   @ApiProperty({
