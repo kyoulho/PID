@@ -1,7 +1,7 @@
-import React from 'react';
-import CardMenu from 'components/card/CardMenu';
-import Checkbox from 'components/checkbox';
-import Card from 'components/card';
+import React from "react";
+import CardMenu from "components/card/CardMenu";
+import Checkbox from "components/checkbox";
+import Card from "components/card";
 
 import {
   createColumnHelper,
@@ -10,7 +10,7 @@ import {
   getSortedRowModel,
   SortingState,
   useReactTable,
-} from '@tanstack/react-table';
+} from "@tanstack/react-table";
 
 type RowObj = {
   name: [string, boolean];
@@ -22,28 +22,24 @@ type RowObj = {
 function CheckTable(props: { tableData: any }) {
   const { tableData } = props;
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  let defaultData = tableData;
+  const defaultData = tableData;
   const columns = [
-    columnHelper.accessor('name', {
-      id: 'name',
+    columnHelper.accessor("name", {
+      id: "name",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">NAME</p>
       ),
       cell: (info: any) => (
         <div className="flex items-center">
-          <Checkbox
-            defaultChecked={info.getValue()[1]}
-            colorScheme="brandScheme"
-            me="10px"
-          />
+          <Checkbox defaultChecked={info.getValue()[1]} me="10px" />
           <p className="ml-3 text-sm font-bold text-navy-700 dark:text-white">
             {info.getValue()[0]}
           </p>
         </div>
       ),
     }),
-    columnHelper.accessor('progress', {
-      id: 'progress',
+    columnHelper.accessor("progress", {
+      id: "progress",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">
           PROGRESS
@@ -55,8 +51,8 @@ function CheckTable(props: { tableData: any }) {
         </p>
       ),
     }),
-    columnHelper.accessor('quantity', {
-      id: 'quantity',
+    columnHelper.accessor("quantity", {
+      id: "quantity",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">
           QUANTITY
@@ -68,8 +64,8 @@ function CheckTable(props: { tableData: any }) {
         </p>
       ),
     }),
-    columnHelper.accessor('date', {
-      id: 'date',
+    columnHelper.accessor("date", {
+      id: "date",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">DATE</p>
       ),
@@ -93,7 +89,7 @@ function CheckTable(props: { tableData: any }) {
     debugTable: true,
   });
   return (
-    <Card extra={'w-full h-full sm:overflow-auto px-6'}>
+    <Card extra={"w-full h-full sm:overflow-auto px-6"}>
       <header className="relative flex items-center justify-between pt-4">
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           Check Table
@@ -121,8 +117,8 @@ function CheckTable(props: { tableData: any }) {
                           header.getContext(),
                         )}
                         {{
-                          asc: '',
-                          desc: '',
+                          asc: "",
+                          desc: "",
                         }[header.column.getIsSorted() as string] ?? null}
                       </div>
                     </th>

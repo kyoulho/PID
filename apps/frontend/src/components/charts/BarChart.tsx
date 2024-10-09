@@ -1,7 +1,7 @@
-'use client';
-import dynamic from 'next/dynamic';
+"use client";
+import dynamic from "next/dynamic";
 // import Chart from 'react-apexcharts';
-const Chart = dynamic(() => import('react-apexcharts'), {
+const Chart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 

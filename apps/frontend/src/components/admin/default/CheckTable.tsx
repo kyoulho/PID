@@ -22,7 +22,7 @@ type RowObj = {
 function CheckTable(props: { tableData: any }) {
   const { tableData } = props;
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  let defaultData = tableData;
+  const defaultData = tableData;
   const columns = [
     columnHelper.accessor("name", {
       id: "name",
@@ -31,11 +31,7 @@ function CheckTable(props: { tableData: any }) {
       ),
       cell: (info: any) => (
         <div className="flex items-center">
-          <Checkbox
-            defaultChecked={info.getValue()[1]}
-            colorScheme="brandScheme"
-            me="10px"
-          />
+          <Checkbox defaultChecked={info.getValue()[1]} me="10px" />
           <p className="ml-3 text-sm font-bold text-navy-700 dark:text-white">
             {info.getValue()[0]}
           </p>
@@ -80,7 +76,7 @@ function CheckTable(props: { tableData: any }) {
       ),
     }),
   ]; // eslint-disable-next-line
-  const [data, setData] = React.useState(() => [...defaultData]);
+    const [data, setData] = React.useState(() => [...defaultData]);
   const table = useReactTable({
     data,
     columns,
@@ -118,7 +114,7 @@ function CheckTable(props: { tableData: any }) {
                       <div className="items-center justify-between text-xs text-gray-200">
                         {flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                         {{
                           asc: "",
@@ -146,7 +142,7 @@ function CheckTable(props: { tableData: any }) {
                         >
                           {flexRender(
                             cell.column.columnDef.cell,
-                            cell.getContext()
+                            cell.getContext(),
                           )}
                         </td>
                       );
