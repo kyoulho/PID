@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
 export default function Fonts() {
-  const prefix = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  const prefix = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
   console.log({ prefix });
 
@@ -15,7 +15,7 @@ export default function Fonts() {
               font-weight: 400;
               font-display: swap;
               src: url('${
-                prefix + '/fonts/dm-sans/DMSans-Italic.ttf'
+                prefix + "/fonts/dm-sans/DMSans-Italic.ttf"
               }') format('truetype');
             }
             
@@ -25,7 +25,7 @@ export default function Fonts() {
               font-weight: 700;
               font-display: swap;
               src: url('${
-                prefix + '/fonts/dm-sans/DMSans-BoldItalic.ttf'
+                prefix + "/fonts/dm-sans/DMSans-BoldItalic.ttf"
               }') format('truetype');
             }
             
@@ -35,7 +35,7 @@ export default function Fonts() {
               font-weight: 400;
               font-display: swap;
               src: url('${
-                prefix + '/fonts/dm-sans/DMSans-Regular.ttf'
+                prefix + "/fonts/dm-sans/DMSans-Regular.ttf"
               }) format('truetype');
             }
             
@@ -45,7 +45,7 @@ export default function Fonts() {
               font-weight: 500;
               font-display: swap;
               src: url('${
-                prefix + '/fonts/dm-sans/DMSans-Medium.ttf'
+                prefix + "/fonts/dm-sans/DMSans-Medium.ttf"
               }) format('truetype');
             }
             
@@ -55,7 +55,7 @@ export default function Fonts() {
               font-weight: 700;
               font-display: swap;
               src: url('${
-                prefix + '/fonts/dm-sans/DMSans-Bold.ttf'
+                prefix + "/fonts/dm-sans/DMSans-Bold.ttf"
               }) format('truetype');
             }
           `,

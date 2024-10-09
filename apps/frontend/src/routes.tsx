@@ -40,7 +40,7 @@ const routes = [
   },
   {
     name: "Sign In",
-    layout: "/auth",
+    layout: "/admin",
     path: "sign-in",
     icon: <MdLock className="h-6 w-6" />,
   },

@@ -8,7 +8,7 @@ import Navbar from "components/navbar";
 import Sidebar from "components/sidebar";
 import Footer from "components/footer/Footer";
 
-const admin = function Admin({ children }: { children: React.ReactNode }) {
+export default function Admin({ children }: { children: React.ReactNode }) {
   // states and functions
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -41,5 +41,4 @@ const admin = function Admin({ children }: { children: React.ReactNode }) {
       </div>
     </div>
   );
-};
-export default admin;
+}
