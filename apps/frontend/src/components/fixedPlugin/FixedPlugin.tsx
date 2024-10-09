@@ -1,32 +1,28 @@
-// Chakra Imports
-// Custom Icons
-import React from 'react';
+import React from "react";
+import { RiMoonFill, RiSunFill } from "react-icons/ri";
 
-import { RiMoonFill, RiSunFill } from 'react-icons/ri';
 export default function FixedPlugin(props: { [x: string]: any }) {
   const { ...rest } = props;
-  const [darkmode, setDarkmode] = React.useState(
-    document.body.classList.contains('dark')
+  const [darkMode, setDarkMode] = React.useState(
+    document.body.classList.contains("dark"),
   );
 
   return (
     <button
       className="border-px fixed bottom-[30px] right-[35px] !z-[99] flex h-[60px] w-[60px] items-center justify-center rounded-full border-[#6a53ff] bg-gradient-to-br from-brand-400 to-brand-600 p-0"
       onClick={() => {
-        if (darkmode) {
-          document.body.classList.remove('dark');
-          setDarkmode(false);
+        if (darkMode) {
+          document.body.classList.remove("dark");
+          setDarkMode(false);
         } else {
-          document.body.classList.add('dark');
-          setDarkmode(true);
+          document.body.classList.add("dark");
+          setDarkMode(true);
         }
       }}
       {...rest}
     >
-      {/* // left={document.documentElement.dir === "rtl" ? "35px" : ""}
-      // right={document.documentElement.dir === "rtl" ? "" : "35px"} */}
       <div className="cursor-pointer text-gray-600">
-        {darkmode ? (
+        {darkMode ? (
           <RiSunFill className="h-4 w-4 text-white" />
         ) : (
           <RiMoonFill className="h-4 w-4 text-white" />

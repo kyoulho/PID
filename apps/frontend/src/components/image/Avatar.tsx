@@ -1,7 +1,7 @@
-'use client';
-import { chakra, useColorMode } from '@chakra-ui/system';
-import { ComponentProps } from 'react';
-import { Image } from './Image';
+"use client";
+import { chakra, useColorMode } from "@chakra-ui/system";
+import { ComponentProps } from "react";
+import { Image } from "./Image";
 
 type AvatarImageProps = Partial<
   ComponentProps<typeof Image> & {
@@ -12,7 +12,7 @@ type AvatarImageProps = Partial<
 export function NextAvatar({
   src,
   showBorder,
-  alt = '',
+  alt = "",
   style,
   ...props
 }: AvatarImageProps) {
@@ -25,19 +25,19 @@ export function NextAvatar({
       {...props}
       {...(showBorder
         ? {
-            border: '2px',
-            borderColor: colorMode === 'dark' ? 'navy.700' : 'white',
+            border: "2px",
+            borderColor: colorMode === "dark" ? "navy.700" : "white",
           }
         : {})}
       alt={alt}
-      objectFit={'fill'}
+      objectFit={"fill"}
       src={src}
-      style={{ ...style, borderRadius: '50%' }}
+      style={{ ...style, borderRadius: "50%" }}
     />
   );
 }
 
 export const ChakraNextAvatar = chakra(NextAvatar, {
   shouldForwardProp: (prop) =>
-    ['width', 'height', 'src', 'alt', 'layout'].includes(prop),
+    ["width", "height", "src", "alt", "layout"].includes(prop),
 });

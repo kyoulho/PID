@@ -24,8 +24,7 @@ export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
     return routes.map((route, index) => {
       if (
         route.layout === '/admin' ||
-        route.layout === '/auth' ||
-        route.layout === '/rtl'
+        route.layout === '/auth'
       ) {
         return (
           <NavLink key={index} href={route.layout + '/' + route.path}>
@@ -36,7 +35,7 @@ export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
               >
                 <span
                   className={`${
-                    activeRoute(route.path) === true
+                    activeRoute(route.path)
                       ? 'font-bold text-brand-500 dark:text-white'
                       : 'font-medium text-gray-600'
                   }`}
@@ -45,7 +44,7 @@ export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
                 </span>
                 <p
                   className={`leading-1 ml-4 flex ${
-                    activeRoute(route.path) === true
+                    activeRoute(route.path)
                       ? 'font-bold text-navy-700 dark:text-white'
                       : 'font-medium text-gray-600'
                   }`}
