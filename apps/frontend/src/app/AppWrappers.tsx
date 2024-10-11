@@ -1,18 +1,22 @@
 "use client";
-import React, { ReactNode } from "react";
-import "styles/App.css";
-import "styles/Contact.css";
-import "styles/MiniCalendar.css";
-import "styles/index.css";
+
+import React, { ReactNode, FC, PropsWithChildren } from "react";
 
 import dynamic from "next/dynamic";
 
-const _NoSSR = ({ children }) => <React.Fragment>{children}</React.Fragment>;
+interface NoSSRProps {
+  children: ReactNode;
+}
 
-const NoSSR = dynamic(() => Promise.resolve(_NoSSR), {
+const _NoSSR: FC<NoSSRProps> = ({ children }) => <>{children}</>;
+
+// NoSSR 컴포넌트를 동적으로 임포트하여 SSR 비활성화
+const NoSSR = dynamic<NoSSRProps>(() => Promise.resolve(_NoSSR), {
   ssr: false,
 });
 
-export default function AppWrappers({ children }: { children: ReactNode }) {
+const AppWrappers: FC<PropsWithChildren> = ({ children }) => {
   return <NoSSR>{children}</NoSSR>;
-}
+};
+
+export default AppWrappers;

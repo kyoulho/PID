@@ -1,15 +1,14 @@
 "use client";
-// Layout components
-import { usePathname } from "next/navigation";
-import React, { useState } from "react";
-import routes from "routes";
-import { getActiveNavbar, getActiveRoute } from "utils/navigation";
-import Navbar from "components/navbar";
-import Sidebar from "components/sidebar";
-import Footer from "components/footer/Footer";
 
-export default function Admin({ children }: { children: React.ReactNode }) {
-  // states and functions
+import Sidebar from "../components/sidebar";
+import routes from "../routes";
+import Navbar from "../components/navbar";
+import { getActiveNavbar, getActiveRoute } from "../utils/navigation";
+import Footer from "../components/footer/Footer";
+import React, { useState } from "react";
+import { usePathname } from "next/navigation";
+
+export const ClientLayout = ({ children }) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
@@ -21,7 +20,7 @@ export default function Admin({ children }: { children: React.ReactNode }) {
         {/* Main Content */}
         <main
           className={`mx-2.5  flex-none transition-all dark:bg-navy-900 
-              md:pr-2 xl:ml-[323px]`}
+                               md:pr-2 xl:ml-[323px]`}
         >
           {/* Routes */}
           <div>
@@ -41,4 +40,4 @@ export default function Admin({ children }: { children: React.ReactNode }) {
       </div>
     </div>
   );
-}
+};
