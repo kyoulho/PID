@@ -1,14 +1,19 @@
+// ClientLayout.tsx
 "use client";
 
 import Sidebar from "../components/sidebar";
-import routes from "../routes";
+import routes from "routes";
 import Navbar from "../components/navbar";
 import { getActiveNavbar, getActiveRoute } from "../utils/navigation";
 import Footer from "../components/footer/Footer";
-import React, { useState } from "react";
+import React, { useState, ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
-export const ClientLayout = ({ children }) => {
+interface ClientLayoutProps {
+  children: ReactNode;
+}
+
+const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
@@ -18,10 +23,7 @@ export const ClientLayout = ({ children }) => {
       {/* Navbar & Main Content */}
       <div className="h-full w-full font-dm dark:bg-navy-900">
         {/* Main Content */}
-        <main
-          className={`mx-2.5  flex-none transition-all dark:bg-navy-900 
-                               md:pr-2 xl:ml-[323px]`}
-        >
+        <main className="mx-2.5 flex-none transition-all dark:bg-navy-900 md:pr-2 xl:ml-[323px]">
           {/* Routes */}
           <div>
             <Navbar
@@ -29,7 +31,7 @@ export const ClientLayout = ({ children }) => {
               brandText={getActiveRoute(routes, pathname)}
               secondary={getActiveNavbar(routes, pathname)}
             />
-            <div className="mx-auto min-h-screen p-2 !pt-[10px] md:p-2">
+            <div className="mx-auto min-h-screen p-2 pt-[10px] md:p-2">
               {children}
             </div>
             <div className="p-3">
@@ -41,3 +43,5 @@ export const ClientLayout = ({ children }) => {
     </div>
   );
 };
+
+export default ClientLayout;

@@ -1,12 +1,13 @@
-'use client';
-import tableDataDevelopment from 'variables/data-tables/tableDataDevelopment';
-import tableDataCheck from 'variables/data-tables/tableDataCheck';
-import CheckTable from 'components/admin/data-tables/CheckTable';
-import tableDataColumns from 'variables/data-tables/tableDataColumns';
-import tableDataComplex from 'variables/data-tables/tableDataComplex';
-import DevelopmentTable from 'components/admin/data-tables/DevelopmentTable';
-import ColumnsTable from 'components/admin/data-tables/ColumnsTable';
-import ComplexTable from 'components/admin/data-tables/ComplexTable';
+"use client";
+
+import tableDataDevelopment from "variables/data-tables/tableDataDevelopment";
+import tableDataCheck from "variables/data-tables/tableDataCheck";
+import CheckTable from "components/tables/CheckTable";
+import tableDataColumns from "variables/data-tables/tableDataColumns";
+import tableDataComplex from "variables/data-tables/tableDataComplex";
+import DevelopmentTable from "components/tables/DevelopmentTable";
+import ColumnsTable from "components/tables/ColumnsTable";
+import ComplexTable from "components/tables/ComplexTable";
 
 const Tables = () => {
   return (

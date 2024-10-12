@@ -1,10 +1,10 @@
-import React from 'react';
-import CardMenu from 'components/card/CardMenu';
-import { DiApple } from 'react-icons/di';
-import { DiAndroid } from 'react-icons/di';
-import { DiWindows } from 'react-icons/di';
-import Card from 'components/card';
-import Progress from 'components/progress';
+import React from "react";
+import CardMenu from "components/card/CardMenu";
+import { DiApple } from "react-icons/di";
+import { DiAndroid } from "react-icons/di";
+import { DiWindows } from "react-icons/di";
+import Card from "components/card";
+import Progress from "components/progress";
 
 import {
   createColumnHelper,
@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   SortingState,
   useReactTable,
-} from '@tanstack/react-table';
+} from "@tanstack/react-table";
 
 type RowObj = {
   name: string;
@@ -25,10 +25,10 @@ type RowObj = {
 function CheckTable(props: { tableData: any }) {
   const { tableData } = props;
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  let defaultData = tableData;
+  const defaultData = tableData;
   const columns = [
-    columnHelper.accessor('name', {
-      id: 'name',
+    columnHelper.accessor("name", {
+      id: "name",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">NAME</p>
       ),
@@ -38,15 +38,15 @@ function CheckTable(props: { tableData: any }) {
         </p>
       ),
     }),
-    columnHelper.accessor('tech', {
-      id: 'tech',
+    columnHelper.accessor("tech", {
+      id: "tech",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">TECH</p>
       ),
       cell: (info: any) => (
         <div className="flex items-center gap-2">
           {info.getValue().map((item: string, key: number) => {
-            if (item === 'apple') {
+            if (item === "apple") {
               return (
                 <div
                   key={key}
@@ -55,7 +55,7 @@ function CheckTable(props: { tableData: any }) {
                   <DiApple />
                 </div>
               );
-            } else if (item === 'android') {
+            } else if (item === "android") {
               return (
                 <div
                   key={key}
@@ -64,7 +64,7 @@ function CheckTable(props: { tableData: any }) {
                   <DiAndroid />
                 </div>
               );
-            } else if (item === 'windows') {
+            } else if (item === "windows") {
               return (
                 <div
                   key={key}
@@ -78,8 +78,8 @@ function CheckTable(props: { tableData: any }) {
         </div>
       ),
     }),
-    columnHelper.accessor('progress', {
-      id: 'progress',
+    columnHelper.accessor("progress", {
+      id: "progress",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">
           PROGRESS
@@ -91,8 +91,8 @@ function CheckTable(props: { tableData: any }) {
         </p>
       ),
     }),
-    columnHelper.accessor('date', {
-      id: 'date',
+    columnHelper.accessor("date", {
+      id: "date",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">DATE</p>
       ),
@@ -102,8 +102,8 @@ function CheckTable(props: { tableData: any }) {
         </p>
       ),
     }),
-    columnHelper.accessor('progress', {
-      id: 'quantity',
+    columnHelper.accessor("progress", {
+      id: "quantity",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">
           QUANTITY
@@ -132,7 +132,7 @@ function CheckTable(props: { tableData: any }) {
     debugTable: true,
   });
   return (
-    <Card extra={'w-full h-full sm:overflow-auto px-6'}>
+    <Card extra={"w-full h-full sm:overflow-auto px-6"}>
       <header className="relative flex items-center justify-between pt-4">
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           Check Table
@@ -160,8 +160,8 @@ function CheckTable(props: { tableData: any }) {
                           header.getContext(),
                         )}
                         {{
-                          asc: '',
-                          desc: '',
+                          asc: "",
+                          desc: "",
                         }[header.column.getIsSorted() as string] ?? null}
                       </div>
                     </th>
