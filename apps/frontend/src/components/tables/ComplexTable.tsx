@@ -1,8 +1,8 @@
-import React from 'react';
-import CardMenu from 'components/card/CardMenu';
-import Card from 'components/card';
-import Progress from 'components/progress';
-import { MdCancel, MdCheckCircle, MdOutlineError } from 'react-icons/md';
+import React from "react";
+import CardMenu from "components/card/CardMenu";
+import Card from "components/card";
+import Progress from "components/progress";
+import { MdCancel, MdCheckCircle, MdOutlineError } from "react-icons/md";
 
 import {
   createColumnHelper,
@@ -11,7 +11,7 @@ import {
   getSortedRowModel,
   SortingState,
   useReactTable,
-} from '@tanstack/react-table';
+} from "@tanstack/react-table";
 
 type RowObj = {
   name: string;
@@ -26,10 +26,10 @@ const columnHelper = createColumnHelper<RowObj>();
 export default function ComplexTable(props: { tableData: any }) {
   const { tableData } = props;
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  let defaultData = tableData;
+  const defaultData = tableData;
   const columns = [
-    columnHelper.accessor('name', {
-      id: 'name',
+    columnHelper.accessor("name", {
+      id: "name",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">NAME</p>
       ),
@@ -39,8 +39,8 @@ export default function ComplexTable(props: { tableData: any }) {
         </p>
       ),
     }),
-    columnHelper.accessor('status', {
-      id: 'status',
+    columnHelper.accessor("status", {
+      id: "status",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">
           STATUS
@@ -48,11 +48,11 @@ export default function ComplexTable(props: { tableData: any }) {
       ),
       cell: (info) => (
         <div className="flex items-center">
-          {info.getValue() === 'Approved' ? (
+          {info.getValue() === "Approved" ? (
             <MdCheckCircle className="me-1 text-green-500 dark:text-green-300" />
-          ) : info.getValue() === 'Disable' ? (
+          ) : info.getValue() === "Disable" ? (
             <MdCancel className="me-1 text-red-500 dark:text-red-300" />
-          ) : info.getValue() === 'Error' ? (
+          ) : info.getValue() === "Error" ? (
             <MdOutlineError className="me-1 text-amber-500 dark:text-amber-300" />
           ) : null}
           <p className="text-sm font-bold text-navy-700 dark:text-white">
@@ -61,8 +61,8 @@ export default function ComplexTable(props: { tableData: any }) {
         </div>
       ),
     }),
-    columnHelper.accessor('date', {
-      id: 'date',
+    columnHelper.accessor("date", {
+      id: "date",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">DATE</p>
       ),
@@ -72,8 +72,8 @@ export default function ComplexTable(props: { tableData: any }) {
         </p>
       ),
     }),
-    columnHelper.accessor('progress', {
-      id: 'progress',
+    columnHelper.accessor("progress", {
+      id: "progress",
       header: () => (
         <p className="text-sm font-bold text-gray-600 dark:text-white">
           PROGRESS
@@ -99,7 +99,7 @@ export default function ComplexTable(props: { tableData: any }) {
     debugTable: true,
   });
   return (
-    <Card extra={'w-full h-full px-6 pb-6 sm:overflow-x-auto'}>
+    <Card extra={"w-full h-full px-6 pb-6 sm:overflow-x-auto"}>
       <div className="relative flex items-center justify-between pt-4">
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           Complex Table
@@ -126,8 +126,8 @@ export default function ComplexTable(props: { tableData: any }) {
                           header.getContext(),
                         )}
                         {{
-                          asc: '',
-                          desc: '',
+                          asc: "",
+                          desc: "",
                         }[header.column.getIsSorted() as string] ?? null}
                       </div>
                     </th>

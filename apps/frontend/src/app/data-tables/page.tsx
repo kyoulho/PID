@@ -3,10 +3,8 @@
 import tableDataDevelopment from "variables/data-tables/tableDataDevelopment";
 import tableDataCheck from "variables/data-tables/tableDataCheck";
 import CheckTable from "components/tables/CheckTable";
-import tableDataColumns from "variables/data-tables/tableDataColumns";
 import tableDataComplex from "variables/data-tables/tableDataComplex";
 import DevelopmentTable from "components/tables/DevelopmentTable";
-import ColumnsTable from "components/tables/ColumnsTable";
 import ComplexTable from "components/tables/ComplexTable";
 
 const Tables = () => {
@@ -17,9 +15,7 @@ const Tables = () => {
         <CheckTable tableData={tableDataCheck} />
       </div>
 
-      <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-2">
-        <ColumnsTable tableData={tableDataColumns} />
-
+      <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-1">
         <ComplexTable tableData={tableDataComplex} />
       </div>
     </div>

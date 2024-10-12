@@ -1,4 +1,6 @@
 // src/components/ColumnsTable.tsx
+"use client";
+
 import React, { FC, useState } from "react";
 import Card from "components/card";
 import CardMenu from "components/card/CardMenu";
@@ -12,14 +14,17 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-interface ColumnsTableProps<> {
+interface ColumnsTableProps<TData> {
   tableName?: string;
-  columnDefs: ColumnDef<unknown>;
-  tableData: [];
+  columnDefs: ColumnDef<TData>[];
+  tableData: TData[];
 }
 
-const ColumnsTable: FC<ColumnsTableProps> = (props) => {
-  const { tableName, columnDefs, tableData } = props;
+const ColumnsTable: FC<ColumnsTableProps<unknown>> = ({
+  tableName,
+  columnDefs,
+  tableData,
+}) => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
@@ -35,13 +40,13 @@ const ColumnsTable: FC<ColumnsTableProps> = (props) => {
   });
 
   return (
-    <Card extra={"w-full pb-10 p-4 h-full"}>
-      <header className="relative flex items-center justify-between">
+    <Card extra={"w-full h-full px-6 pb-6 sm:overflow-x-auto"}>
+      <div className="relative flex items-center justify-between pt-4">
         <div className="text-xl font-bold text-navy-700 dark:text-white">
           {tableName}
         </div>
         <CardMenu />
-      </header>
+      </div>
 
       <div className="mt-8 overflow-x-scroll xl:overflow-x-hidden">
         <table className="w-full">
@@ -55,7 +60,7 @@ const ColumnsTable: FC<ColumnsTableProps> = (props) => {
                     onClick={header.column.getToggleSortingHandler()}
                     className="cursor-pointer border-b border-gray-200 pb-2 pr-4 pt-4 text-start dark:border-white/30"
                   >
-                    <div className="flex items-center justify-between text-xs text-gray-200">
+                    <div className="flex items-center justify-start">
                       {flexRender(
                         header.column.columnDef.header,
                         header.getContext(),
@@ -79,7 +84,7 @@ const ColumnsTable: FC<ColumnsTableProps> = (props) => {
                   {row.getVisibleCells().map((cell) => (
                     <td
                       key={cell.id}
-                      className="min-w-[150px] border-white/0 py-3 pr-4"
+                      className="min-w-[150px] border-white/0 py-3 pr-4 text-start"
                     >
                       {flexRender(
                         cell.column.columnDef.cell,

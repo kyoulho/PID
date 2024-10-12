@@ -6,8 +6,6 @@ import { GetAccountDTO } from "@mid/shared";
 import AccountColumnDefs from "components/tables/AccountColumnDefs";
 import { useEffect, useState } from "react";
 
-const BACKEND_BASE_URL = "http://localhost:8080";
-
 const getAccountDTOs = async (): Promise<GetAccountDTO[]> => {
   return [
     {
@@ -24,21 +22,15 @@ const getAccountDTOs = async (): Promise<GetAccountDTO[]> => {
   ];
 };
 
-const Account: FC = () => {
-  const [data, setData] = useState<GetAccountDTO[]>([]);
+const AccountPage: FC = () => {
+  const [accounts, setAccounts] = useState<GetAccountDTO[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const accountData = await getAccountDTOs();
-        setData(accountData);
-      } catch (err) {
-        setError("데이터를 가져오는 데 실패했습니다.");
-      } finally {
-        setLoading(false);
-      }
+      const accountData = await getAccountDTOs();
+      setAccounts(accountData);
     };
 
     fetchData();
@@ -48,8 +40,8 @@ const Account: FC = () => {
     <div>
       <div className="mt-5 grid h-full grid-cols-1 gap-5 md:grid-cols-1">
         <ColumnsTable
-          tableName={"table"}
-          tableData={data}
+          tableName={"계좌 목록"}
+          tableData={accounts}
           columnDefs={AccountColumnDefs}
         />
       </div>
@@ -57,4 +49,4 @@ const Account: FC = () => {
   );
 };
 
-export default Account;
+export default AccountPage;
