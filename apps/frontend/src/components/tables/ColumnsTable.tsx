@@ -4,80 +4,27 @@ import Card from "components/card";
 import CardMenu from "components/card/CardMenu";
 
 import {
-  createColumnHelper,
+  ColumnDef,
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { RowObj } from "../../variables/data-tables/tableDataColumns";
 
-interface ColumnsTableProps {
-  tableData: RowObj[];
+interface ColumnsTableProps<> {
+  tableName?: string;
+  columnDefs: ColumnDef<unknown>;
+  tableData: [];
 }
 
-const columnHelper = createColumnHelper<RowObj>();
-
-const ColumnsTable: FC<ColumnsTableProps> = ({ tableData }) => {
+const ColumnsTable: FC<ColumnsTableProps> = (props) => {
+  const { tableName, columnDefs, tableData } = props;
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const columns = [
-    columnHelper.accessor("name", {
-      id: "name",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">NAME</p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-    columnHelper.accessor("progress", {
-      id: "progress",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          PROGRESS
-        </p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-    columnHelper.accessor("quantity", {
-      id: "quantity",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          QUANTITY
-        </p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-    columnHelper.accessor("date", {
-      id: "date",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">DATE</p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-  ];
-
-  const [data, setData] = useState<RowObj[]>(() => [...tableData]);
-
   const table = useReactTable({
-    data,
-    columns,
+    data: tableData,
+    columns: columnDefs,
     state: {
       sorting,
     },
@@ -91,7 +38,7 @@ const ColumnsTable: FC<ColumnsTableProps> = ({ tableData }) => {
     <Card extra={"w-full pb-10 p-4 h-full"}>
       <header className="relative flex items-center justify-between">
         <div className="text-xl font-bold text-navy-700 dark:text-white">
-          4-Columns Table
+          {tableName}
         </div>
         <CardMenu />
       </header>

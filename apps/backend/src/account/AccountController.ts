@@ -22,8 +22,8 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../auth/JwtAuthGuard';
-import { RequestUserId } from '../common/CustomDeco';
+import { JwtAuthGuard } from 'auth/JwtAuthGuard';
+import { RequestUserId } from 'common/CustomDeco';
 
 @ApiBearerAuth('Authorization')
 @ApiTags('계좌')
