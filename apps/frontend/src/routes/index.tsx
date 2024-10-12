@@ -17,31 +17,31 @@ export interface RouteType {
 const routes: RouteType[] = [
   {
     name: "대시보드",
-    path: "dashboard",
+    path: "/dashboard",
     icon: <MdDashboard className="h-6 w-6" />,
     isAuth: true,
   },
   {
     name: "계좌 관리",
-    path: "account",
+    path: "/account",
     icon: <MdAccountBalance className="h-6 w-6" />,
     isAuth: true,
   },
   {
     name: "NFT Marketplace",
-    path: "nft-marketplace",
+    path: "/nft-marketplace",
     icon: <MdOutlineShoppingCart className="h-6 w-6" />,
     isAuth: true,
   },
   {
     name: "Data Tables",
-    path: "data-tables",
+    path: "/data-tables",
     icon: <MdBarChart className="h-6 w-6" />,
     isAuth: true,
   },
   {
     name: "Profile",
-    path: "profile",
+    path: "/profile",
     icon: <MdPerson className="h-6 w-6" />,
     isAuth: true,
   },

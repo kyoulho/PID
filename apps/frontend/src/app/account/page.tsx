@@ -1,39 +1,21 @@
 "use client";
 
 import type { FC } from "react";
+import { useEffect, useState } from "react";
 import ColumnsTable from "components/tables/ColumnsTable";
 import { GetAccountDTO } from "@mid/shared";
 import AccountColumnDefs from "components/tables/AccountColumnDefs";
-import { useEffect, useState } from "react";
-
-const getAccountDTOs = async (): Promise<GetAccountDTO[]> => {
-  return [
-    {
-      name: "My Savings Account",
-      description: "This is my primary savings account.",
-      issuer: "Bank of Korea",
-      number: "1234567890",
-      interestRate: 1.5,
-      withdrawalLimit: 10000,
-      id: "a1b2c3d4-e5f6-7890-1234-56789abcdef0",
-      accountTypeName: "Savings",
-      createdAt: "2023-10-06T12:34:56.789Z",
-    },
-  ];
-};
+import api from "utils/api";
 
 const AccountPage: FC = () => {
   const [accounts, setAccounts] = useState<GetAccountDTO[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const accountData = await getAccountDTOs();
-      setAccounts(accountData);
+    const getAccount = async () => {
+      return await api("/api/accounts", { method: "GET" });
     };
-
-    fetchData();
+    const account = getAccount();
+    setAccounts(account);
   }, []);
 
   return (
