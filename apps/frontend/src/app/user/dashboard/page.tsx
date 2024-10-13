@@ -14,12 +14,12 @@ import DailyTraffic from "components/admin/default/DailyTraffic";
 import TaskCard from "components/admin/default/TaskCard";
 import tableDataCheck from "variables/data-tables/tableDataCheck";
 import tableDataComplex from "variables/data-tables/tableDataComplex";
+import { FC } from "react";
 
-const Dashboard = () => {
+const Dashboard: FC = () => {
   return (
     <div>
       {/* Card widget */}
-
       <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
         <Widget
           icon={<MdBarChart className="h-7 w-7" />}

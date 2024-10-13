@@ -1,25 +1,23 @@
 // components/Navbar.tsx
-import React, { useState, useEffect, FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Dropdown from "components/dropdown";
 import { FiAlignJustify, FiSearch } from "react-icons/fi";
 import { BsArrowBarUp } from "react-icons/bs";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
 import {
-  IoMdNotificationsOutline,
   IoMdInformationCircleOutline,
+  IoMdNotificationsOutline,
 } from "react-icons/io";
 import Image from "next/image";
-import NavLink from "components/link/NavLink";
 import navbarImage from "/public/img/layout/Navbar.png";
 import avatar from "/public/img/avatars/avatar4.png";
 
 // Props 인터페이스 정의
 interface NavbarProps {
   onOpenSidenav: () => void;
-  brandText: string;
 }
 
-const Navbar: FC<NavbarProps> = ({ onOpenSidenav, brandText }) => {
+const Navbar: FC<NavbarProps> = ({ onOpenSidenav }) => {
   const [darkMode, setDarkMode] = useState<boolean>(false);
 
   // 클라이언트 사이드에서만 darkMode 상태를 초기화
@@ -40,37 +38,7 @@ const Navbar: FC<NavbarProps> = ({ onOpenSidenav, brandText }) => {
   };
 
   return (
-    <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
-      {/* 브랜드 및 페이지 네비게이션 */}
-      <div className="ml-[6px]">
-        <div className="h-6 w-[224px] pt-1">
-          <a
-            className="text-sm font-normal text-navy-700 hover:underline dark:text-white dark:hover:text-white"
-            href="#"
-          >
-            Pages
-            <span className="mx-1 text-sm text-navy-700 hover:text-navy-700 dark:text-white">
-              {" "}
-              /{" "}
-            </span>
-          </a>
-          <NavLink
-            className="text-sm font-normal capitalize text-navy-700 hover:underline dark:text-white dark:hover:text-white"
-            href="#"
-          >
-            {brandText}
-          </NavLink>
-        </div>
-        <p className="shrink text-[33px] capitalize text-navy-700 dark:text-white">
-          <NavLink
-            href="#"
-            className="font-bold capitalize hover:text-navy-700 dark:hover:text-white"
-          >
-            {brandText}
-          </NavLink>
-        </p>
-      </div>
-
+    <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-end rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
       {/* 검색바 및 기타 네비게이션 아이콘 */}
       <div className="relative mt-[3px] flex h-[61px] w-[355px] flex-grow items-center justify-around gap-2 rounded-full bg-white px-2 py-2 shadow-xl shadow-shadow-500 dark:!bg-navy-800 dark:shadow-none md:w-[365px] md:flex-grow-0 md:gap-1 xl:w-[365px] xl:gap-2">
         {/* 검색바 */}

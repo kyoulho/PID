@@ -26,7 +26,7 @@ const SidebarLinks: FC<SidebarLinksProps> = ({ routes }) => {
       // 특정 레이아웃에 해당하는 라우트만 렌더링
       const active = isActiveRoute(route.path);
       return (
-        <NavLink key={index} href={`${route.path}`}>
+        <NavLink key={index} href={`${route.layout}/${route.path}`}>
           <div className="relative mb-3 flex hover:cursor-pointer">
             <li className="my-[3px] flex cursor-pointer items-center px-8">
               <span

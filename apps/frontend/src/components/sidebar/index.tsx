@@ -2,17 +2,16 @@ import { HiX } from "react-icons/hi";
 import Links from "./components/Links";
 
 import SidebarCard from "components/sidebar/components/SidebarCard";
-import { IRoute } from "types/navigation";
 import { FC } from "react";
+import { RouteType } from "routes";
 
-interface SidebarProps {
-  routes: IRoute[];
+export type SidebarProps = {
+  routes: RouteType[];
   open: boolean;
   setOpen: () => void;
-}
+};
 
-const SidebarHorizon: FC<SidebarProps> = (props) => {
-  const { routes, open, setOpen } = props;
+const Sidebar: FC<SidebarProps> = ({ routes, open, setOpen }) => {
   return (
     <div
       className={`sm:none duration-175 linear fixed !z-50 flex min-h-full flex-col bg-white pb-10 shadow-2xl shadow-white/5 transition-all dark:!bg-navy-800 dark:text-white md:!z-50 lg:!z-50 xl:!z-0 ${
@@ -28,7 +27,7 @@ const SidebarHorizon: FC<SidebarProps> = (props) => {
 
       <div className={`mx-[56px] mt-[50px] flex items-center`}>
         <div className="ml-1 mt-1 h-2.5 font-poppins text-[26px] font-bold uppercase text-navy-700 dark:text-white">
-          머라고 <span className="font-medium">써야하나</span>
+          qnwk <span className="font-medium">부자</span>
         </div>
       </div>
       <div className="mb-7 mt-[58px] h-px bg-gray-300 dark:bg-white/30" />
@@ -46,4 +45,4 @@ const SidebarHorizon: FC<SidebarProps> = (props) => {
   );
 };
 
-export default SidebarHorizon;
+export default Sidebar;
