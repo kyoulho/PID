@@ -6,11 +6,11 @@ import Navbar from "components/navbar";
 import Footer from "components/footer/Footer";
 import React, { FC, ReactNode, useState } from "react";
 
-interface ClientLayoutProps {
+interface UserLayout {
   children: ReactNode;
 }
 
-const Layout: FC<ClientLayoutProps> = ({ children }) => {
+const Layout: FC<UserLayout> = ({ children }) => {
   const [open, setOpen] = useState(false);
 
   return (

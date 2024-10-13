@@ -1,9 +1,7 @@
-// src/components/ColumnsTable.tsx
-"use client";
-
 import React, { FC, useState } from "react";
 import Card from "components/card";
 import CardMenu from "components/card/CardMenu";
+import { Spinner } from "@chakra-ui/react";
 import {
   ColumnDef,
   flexRender,
@@ -27,7 +25,7 @@ const LoadingRow: FC<{ colSpan: number }> = ({ colSpan }) => (
   <tr>
     <td colSpan={colSpan} className="px-6 py-4 text-center">
       <div className="flex justify-center items-center">
-        <span className="loading loading-bars loading-md" />
+        <Spinner speed="1s" />
       </div>
     </td>
   </tr>

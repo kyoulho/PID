@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import navbarImage from "/public/img/layout/Navbar.png";
 import avatar from "/public/img/avatars/avatar4.png";
+import LoginModal from "../modal/LoginModal";
 
 // Props 인터페이스 정의
 interface NavbarProps {
@@ -39,6 +40,7 @@ const Navbar: FC<NavbarProps> = ({ onOpenSidenav }) => {
 
   return (
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-end rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
+      <LoginModal />
       {/* 검색바 및 기타 네비게이션 아이콘 */}
       <div className="relative mt-[3px] flex h-[61px] w-[355px] flex-grow items-center justify-around gap-2 rounded-full bg-white px-2 py-2 shadow-xl shadow-shadow-500 dark:!bg-navy-800 dark:shadow-none md:w-[365px] md:flex-grow-0 md:gap-1 xl:w-[365px] xl:gap-2">
         {/* 검색바 */}

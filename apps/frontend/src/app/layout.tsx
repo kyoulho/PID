@@ -1,6 +1,7 @@
 // layout.tsx
 import type { FC, PropsWithChildren } from "react";
 import React from "react";
+import { ChakraProvider } from "@chakra-ui/react";
 
 import "styles/App.css";
 import "styles/Contact.css";
@@ -31,7 +32,9 @@ export const viewport: ViewportLayout = {
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <html lang="ko">
-      <body id="root">{children}</body>
+      <body id="root">
+        <ChakraProvider>{children}</ChakraProvider>
+      </body>
     </html>
   );
 };
