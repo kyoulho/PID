@@ -2,37 +2,20 @@
 "use client";
 
 import type { FC } from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ColumnsTable from "components/tables/ColumnsTable";
-import { GetAccountDTO } from "@mid/shared";
 import AccountColumnDefs from "components/tables/AccountColumnDefs";
-import axiosInstance from "utils/axiosInstance";
+import useAccountStore from "store/useAccountStore";
 
 const AccountPage: FC = () => {
-  const [accounts, setAccounts] = useState<GetAccountDTO[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const { accounts, loading, error, fetchAccounts } = useAccountStore();
 
   useEffect(() => {
-    const fetchAccounts = async () => {
-      setLoading(true);
-      setError(false);
-      try {
-        const response =
-          await axiosInstance.get<GetAccountDTO[]>("/api/accounts");
-        setAccounts(response.data);
-      } catch (err) {
-        setError("계좌 데이터를 불러오는 데 실패했습니다.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchAccounts();
-  }, []);
+  }, [fetchAccounts]);
 
   return (
-    <div className="mt-5 grid h-full grid-cols-1 gap-5">
+    <div className="m-5 grid h-full grid-cols-1 gap-5">
       <ColumnsTable
         tableName="계좌 목록"
         tableData={accounts}

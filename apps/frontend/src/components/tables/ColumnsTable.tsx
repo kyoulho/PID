@@ -4,7 +4,6 @@
 import React, { FC, useState } from "react";
 import Card from "components/card";
 import CardMenu from "components/card/CardMenu";
-import { Spinner } from "@chakra-ui/react";
 import {
   ColumnDef,
   flexRender,
@@ -28,8 +27,7 @@ const LoadingRow: FC<{ colSpan: number }> = ({ colSpan }) => (
   <tr>
     <td colSpan={colSpan} className="px-6 py-4 text-center">
       <div className="flex justify-center items-center">
-        {/* Spinner 크기 조정: boxSize를 사용하여 원하는 크기로 설정 */}
-        <Spinner size="xl" speed="0.65s" boxSize={"20px"} />
+        <span className="loading loading-bars loading-md" />
       </div>
     </td>
   </tr>
@@ -38,7 +36,7 @@ const LoadingRow: FC<{ colSpan: number }> = ({ colSpan }) => (
 // 에러 메시지를 위한 컴포넌트
 const ErrorRow: FC<{ colSpan: number }> = ({ colSpan }) => (
   <tr>
-    <td colSpan={colSpan} className="px-6 py-4 text-center ">
+    <td colSpan={colSpan} className="min-w-[150px] py-3 pr-4 text-center">
       <p className="text-sm font-bold text-gray-700 dark:text-white">
         데이터를 불러오는데 실패했습니다.
       </p>
@@ -49,7 +47,7 @@ const ErrorRow: FC<{ colSpan: number }> = ({ colSpan }) => (
 // 빈 데이터를 위한 컴포넌트
 const EmptyRow: FC<{ colSpan: number }> = ({ colSpan }) => (
   <tr>
-    <td colSpan={colSpan} className="px-6 py-4 text-center">
+    <td colSpan={colSpan} className="min-w-[150px] py-3 pr-4 text-center">
       <p className="text-sm font-bold text-gray-700 dark:text-white">
         데이터가 없습니다.
       </p>
@@ -59,7 +57,7 @@ const EmptyRow: FC<{ colSpan: number }> = ({ colSpan }) => (
 
 // 데이터 행을 위한 컴포넌트
 const DataRows: FC<{
-  rows: any[];
+  rows: unknown[];
 }> = ({ rows }) => (
   <>
     {rows.map((row) => (
@@ -99,9 +97,9 @@ const ColumnsTable: FC<ColumnsTableProps<unknown>> = ({
   const colSpan = columnDefs.length;
 
   return (
-    <Card extra="w-full h-full px-6 pb-6 sm:overflow-x-auto">
+    <Card extra="w-full h-full p-6 sm:overflow-x-auto">
       {/* 헤더 섹션 */}
-      <div className="relative flex items-center justify-between pt-4">
+      <div className="relative flex items-center justify-between">
         <h2 className="text-xl font-bold text-navy-700 dark:text-white">
           {tableName}
         </h2>
@@ -109,7 +107,7 @@ const ColumnsTable: FC<ColumnsTableProps<unknown>> = ({
       </div>
 
       {/* 테이블 섹션 */}
-      <div className="mt-8 overflow-x-scroll xl:overflow-x-hidden">
+      <div className="mt-4 overflow-x-scroll xl:overflow-x-hidden">
         <table className="w-full">
           {/* 테이블 헤더 */}
           <thead>
@@ -122,16 +120,20 @@ const ColumnsTable: FC<ColumnsTableProps<unknown>> = ({
                     onClick={header.column.getToggleSortingHandler()}
                     className="cursor-pointer border-b border-gray-200 pb-2 pr-4 pt-4 text-start dark:border-white/30"
                   >
-                    <div className="flex items-center">
+                    <div className="flex items-center justify-center text-xs text-gray-600">
                       {flexRender(
                         header.column.columnDef.header,
                         header.getContext(),
                       )}
                       {/* 정렬 아이콘 */}
-                      {{
-                        asc: "↑",
-                        desc: "↓",
-                      }[header.column.getIsSorted() as string] ?? null}
+                      <span className="w-4 text-right">
+                        {{
+                          asc: "↑",
+                          desc: "↓",
+                        }[header.column.getIsSorted() as string] ?? (
+                          <span className="">↕️</span>
+                        )}
+                      </span>
                     </div>
                   </th>
                 ))}
@@ -146,21 +148,7 @@ const ColumnsTable: FC<ColumnsTableProps<unknown>> = ({
             ) : error ? (
               <ErrorRow colSpan={colSpan} />
             ) : tableData.length > 0 ? (
-              table.getRowModel().rows.map((row) => (
-                <tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <td
-                      key={cell.id}
-                      className="min-w-[150px] py-3 pr-4 text-start"
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))
+              <DataRows rows={tableData} />
             ) : (
               <EmptyRow colSpan={colSpan} />
             )}
