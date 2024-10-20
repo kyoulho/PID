@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional, PartialType } from "@nestjs/swagger";
 import { IsString, IsOptional, IsEnum } from "class-validator";
-import { RebalanceFrequency } from "../enum";
+import { RebalanceFrequency, StrategyType } from "../enum";
 import { UUID } from "../types";
 
 class BaseStrategyDTO {
@@ -11,6 +11,14 @@ class BaseStrategyDTO {
   @IsString()
   name: string;
 
+  @ApiProperty({
+    description: "전략 종류",
+    example: StrategyType.DAA,
+    enum: StrategyType,
+  })
+  @IsEnum(StrategyType)
+  type: StrategyType;
+
   @ApiPropertyOptional({
     description: "전략 설명",
     example: "This strategy focuses on high-growth stocks.",
@@ -18,6 +26,14 @@ class BaseStrategyDTO {
   @IsOptional()
   @IsString()
   description?: string;
+
+  @ApiPropertyOptional({
+    description: "전략 알고리즘",
+    example: "function(){ return 'hello'; }",
+  })
+  @IsOptional()
+  @IsString()
+  algorithm?: string;
 
   @ApiProperty({
     description: "리밸런싱 빈도",

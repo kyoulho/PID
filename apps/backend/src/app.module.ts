@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AccountModule } from './account/AccountModule';
-import { PorfolioModule } from './portfolio/PorfolioModule';
-import { StrategyModule } from './strategy/StrategyModule';
+import { AccountModule } from 'account/AccountModule';
+import { PortfolioModule } from 'portfolio/PorfolioModule';
+import { StrategyModule } from 'strategy/StrategyModule';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
-import { UserModule } from './user/UserModule';
-import { AuthModule } from './auth/AuthModule';
+import { UserModule } from 'user/UserModule';
+import { AuthModule } from 'auth/AuthModule';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
@@ -30,7 +30,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       envFilePath: `.${process.env.NODE_ENV}.env`,
     }),
     AccountModule,
-    PorfolioModule,
+    PortfolioModule,
     StrategyModule,
     UserModule,
     AuthModule,

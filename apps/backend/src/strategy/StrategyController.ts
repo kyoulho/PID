@@ -21,15 +21,20 @@ import {
   CreateStrategyDTO,
   GetStrategyDTO,
   UpdateStrategyDTO,
+  UUID,
 } from '@mid/shared';
 import { JwtAuthGuard } from '../auth/JwtAuthGuard';
-import { AdminGuard } from '../auth/admin-guard.service';
+import { AdminGuard } from '../auth/AdminGuard';
+import { AlgorithmService } from './AlgorithmService';
 
 @ApiBearerAuth('Authorization')
 @ApiTags('전략')
 @Controller('/api/strategies')
 export class StrategyController {
-  constructor(private readonly strategyService: StrategyService) {}
+  constructor(
+    private readonly strategyService: StrategyService,
+    private readonly algorithmService: AlgorithmService,
+  ) {}
 
   @Get()
   @ApiOperation({
@@ -64,7 +69,8 @@ export class StrategyController {
     status: 404,
     description: '해당 ID의 전략을 찾을 수 없습니다.',
   })
-  async getStrategyById(@Param('id') id: string): Promise<GetStrategyDTO> {
+  @UseGuards(JwtAuthGuard)
+  async getStrategyById(@Param('id') id: UUID): Promise<GetStrategyDTO> {
     return this.strategyService.getStrategyById(id);
   }
 
@@ -81,6 +87,7 @@ export class StrategyController {
     type: GetStrategyDTO,
   })
   @ApiResponse({ status: 400, description: '잘못된 입력 데이터입니다.' })
+  @UseGuards(JwtAuthGuard, AdminGuard)
   async createStrategy(
     @Body() strategyDTO: CreateStrategyDTO,
   ): Promise<GetStrategyDTO> {
@@ -99,8 +106,9 @@ export class StrategyController {
   })
   @ApiBody({ type: UpdateStrategyDTO, description: '업데이트할 전략 정보' })
   @ApiResponse({ status: 400, description: '잘못된 입력 데이터입니다.' })
+  @UseGuards(JwtAuthGuard, AdminGuard)
   async updateStrategy(
-    @Param('id') id: string,
+    @Param('id') id: UUID,
     @Body() strategyDTO: UpdateStrategyDTO,
   ): Promise<GetStrategyDTO> {
     return this.strategyService.updateStrategy(id, strategyDTO);
@@ -116,7 +124,32 @@ export class StrategyController {
     description: '삭제할 전략의 고유 ID',
     example: '123e4567-e89b-12d3-a456-426614174000',
   })
-  async deleteStrategy(@Param('id') id: string): Promise<void> {
+  @UseGuards(JwtAuthGuard, AdminGuard)
+  async deleteStrategy(@Param('id') id: UUID): Promise<void> {
     return this.strategyService.deleteStrategy(id);
+  }
+
+  @Get(':id/exec')
+  @ApiOperation({
+    summary: '전략 알고리즘을 실행합니다.',
+    description: '전략 ID를 기반으로 알고리즘을 실행하고 그 결과를 반환합니다.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: '실행할 전략의 고유 ID',
+    example: '123e4567-e89b-12d3-a456-426614174000',
+  })
+  @ApiResponse({
+    status: 200,
+    description: '알고리즘이 성공적으로 실행되었습니다.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: '해당 ID의 전략을 찾을 수 없습니다.',
+  })
+  @UseGuards(JwtAuthGuard)
+  async executeAlgorithm(@Param('id') id: UUID): Promise<string> {
+    const strategy = await this.strategyService.getStrategyById(id);
+    return this.algorithmService.executeAlgorithm(strategy.algorithm);
   }
 }

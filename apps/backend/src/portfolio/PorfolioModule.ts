@@ -16,4 +16,4 @@ import { AssetDividendRecord } from './AssetDividendRecord';
   ],
   exports: [TypeOrmModule],
 })
-export class PorfolioModule {}
+export class PortfolioModule {}

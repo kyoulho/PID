@@ -1,18 +1,13 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
+  Entity,
   JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UUID } from '@mid/shared';
+import { TradingType, UUID } from '@mid/shared';
 import { PortfolioAsset } from './PortfolioAsset';
 import { Account } from '../account/Account';
-
-export enum TradingType {
-  BUY = 'BUY',
-  SELL = 'SELL',
-}
 
 @Entity()
 export class AssetTradingRecord {

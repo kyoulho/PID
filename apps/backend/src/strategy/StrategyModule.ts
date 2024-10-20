@@ -8,7 +8,12 @@ import { StrategyRepository } from './StrategyRepository';
 @Module({
   imports: [TypeOrmModule.forFeature([Strategy])],
   controllers: [StrategyController],
-  providers: [StrategyService, StrategyRepository],
+  providers: [
+    StrategyService,
+    StrategyRepository,
+    AlgorithmService,
+    DataFetcherService,
+  ],
   exports: [StrategyService],
 })
 export class StrategyModule {}

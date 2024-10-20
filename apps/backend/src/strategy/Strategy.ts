@@ -1,10 +1,10 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UUID, RebalanceFrequency } from '@mid/shared';
+import { RebalanceFrequency, StrategyType, UUID } from '@mid/shared';
 
 @Entity()
 export class Strategy {
@@ -19,6 +19,12 @@ export class Strategy {
 
   @Column({ type: 'varchar', length: 200 })
   rebalanceFrequency: RebalanceFrequency;
+
+  @Column({ type: 'varchar', length: 200 })
+  type: StrategyType;
+
+  @Column({ type: 'text', nullable: true })
+  algorithm?: string;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;

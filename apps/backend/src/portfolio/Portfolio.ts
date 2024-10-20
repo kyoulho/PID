@@ -9,6 +9,7 @@ import {
 import { PortfolioAsset } from './PortfolioAsset';
 import { UUID } from '@mid/shared';
 import { Strategy } from '../strategy/Strategy';
+import { User } from '../user/User';
 
 @Entity()
 export class Portfolio {
@@ -32,4 +33,10 @@ export class Portfolio {
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
+
+  @ManyToOne(() => User, {
+    eager: true,
+    nullable: false,
+  })
+  user: User;
 }
