@@ -23,9 +23,6 @@ export class Strategy {
   @Column({ type: 'varchar', length: 200 })
   type: StrategyType;
 
-  @Column({ type: 'text', nullable: true })
-  algorithm?: string;
-
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 }

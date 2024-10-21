@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { Email, PhoneNumber, UserRole, UUID } from '@mid/shared';
 import { Account } from '../account/Account';
+import { Portfolio } from '../portfolio/Portfolio';
 
 @Entity()
 export class User {
@@ -34,6 +35,13 @@ export class User {
     orphanedRowAction: 'delete',
   })
   accounts: Account[];
+
+  @OneToMany(() => Portfolio, (account) => account.user, {
+    cascade: true,
+    eager: false,
+    orphanedRowAction: 'delete',
+  })
+  portfolios: Portfolio[];
 
   @Column({ type: 'varchar', length: 10 })
   role: UserRole;

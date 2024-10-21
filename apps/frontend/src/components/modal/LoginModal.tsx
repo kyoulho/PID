@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -19,10 +19,9 @@ const LoginModal: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    console.log("로그인 시도:", { email, password });
+  const handleLogin = useCallback(() => {
     onClose();
-  };
+  }, [onClose]);
 
   return (
     <>

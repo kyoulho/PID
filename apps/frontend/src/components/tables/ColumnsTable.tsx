@@ -118,7 +118,7 @@ const ColumnsTable: FC<ColumnsTableProps<unknown>> = ({
                     onClick={header.column.getToggleSortingHandler()}
                     className="cursor-pointer border-b border-gray-200 pb-2 pr-4 pt-4 text-start dark:border-white/30"
                   >
-                    <div className="flex items-center justify-center text-xs text-gray-600">
+                    <div className="flex items-center justify-start text-xs text-gray-600">
                       {flexRender(
                         header.column.columnDef.header,
                         header.getContext(),

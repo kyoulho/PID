@@ -15,7 +15,7 @@ export class StrategyService {
     return await this.strategyRepository.find();
   }
 
-  async getStrategyById(id: UUID): Promise<GetStrategyDTO> {
+  async getStrategy(id: UUID): Promise<GetStrategyDTO> {
     return this.strategyRepository.findOneByOrFail({ id });
   }
 

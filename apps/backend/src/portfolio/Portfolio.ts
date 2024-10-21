@@ -8,8 +8,8 @@ import {
 } from 'typeorm';
 import { PortfolioAsset } from './PortfolioAsset';
 import { UUID } from '@mid/shared';
-import { Strategy } from '../strategy/Strategy';
-import { User } from '../user/User';
+import { Strategy } from 'strategy/Strategy';
+import { User } from 'user/User';
 
 @Entity()
 export class Portfolio {

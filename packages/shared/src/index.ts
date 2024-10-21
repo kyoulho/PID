@@ -5,3 +5,4 @@ export * from "./dto/auth.dto";
 
 export * from "./enum";
 export * from "./types";
+export * from "./utils";

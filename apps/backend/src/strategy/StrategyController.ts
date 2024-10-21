@@ -25,16 +25,12 @@ import {
 } from '@mid/shared';
 import { JwtAuthGuard } from '../auth/JwtAuthGuard';
 import { AdminGuard } from '../auth/AdminGuard';
-import { AlgorithmService } from './AlgorithmService';
 
 @ApiBearerAuth('Authorization')
 @ApiTags('전략')
 @Controller('/api/strategies')
 export class StrategyController {
-  constructor(
-    private readonly strategyService: StrategyService,
-    private readonly algorithmService: AlgorithmService,
-  ) {}
+  constructor(private readonly strategyService: StrategyService) {}
 
   @Get()
   @ApiOperation({
@@ -71,7 +67,7 @@ export class StrategyController {
   })
   @UseGuards(JwtAuthGuard)
   async getStrategyById(@Param('id') id: UUID): Promise<GetStrategyDTO> {
-    return this.strategyService.getStrategyById(id);
+    return this.strategyService.getStrategy(id);
   }
 
   @Post()
@@ -149,7 +145,6 @@ export class StrategyController {
   })
   @UseGuards(JwtAuthGuard)
   async executeAlgorithm(@Param('id') id: UUID): Promise<string> {
-    const strategy = await this.strategyService.getStrategyById(id);
-    return this.algorithmService.executeAlgorithm(strategy.algorithm);
+    return 'TODO';
   }
 }
