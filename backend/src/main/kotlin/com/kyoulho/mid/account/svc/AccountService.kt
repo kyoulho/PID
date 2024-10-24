@@ -3,108 +3,85 @@ package com.kyoulho.mid.account.svc
 import com.kyoulho.mid.account.dto.CreateAccountDTO
 import com.kyoulho.mid.account.dto.GetAccountDTO
 import com.kyoulho.mid.account.dto.UpdateAccountDTO
+import com.kyoulho.mid.account.dto.toGetAccountDTO
 import com.kyoulho.mid.account.entity.Account
 import com.kyoulho.mid.account.repo.AccountRepository
 import com.kyoulho.mid.account.repo.AccountTypeRepository
-import com.kyoulho.mid.user.User
 import com.kyoulho.mid.user.repo.UserRepository
-import jakarta.persistence.EntityNotFoundException
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.math.BigDecimal
-import java.util.*
+import org.springframework.web.server.ResponseStatusException
 
 @Service
 class AccountService(
-        private val accountRepository: AccountRepository,
-        private val accountTypeRepository: AccountTypeRepository,
-        private val userRepository: UserRepository,
+    private val accountRepository: AccountRepository,
+    private val accountTypeRepository: AccountTypeRepository,
+    private val userRepository: UserRepository,
 ) {
 
     // 계좌 생성
     @Transactional
-    fun createAccount(userId: UUID, createAccountDTO: CreateAccountDTO): GetAccountDTO {
-        createAccountDTO
+    fun createAccount(userId: String, createAccountDTO: CreateAccountDTO): GetAccountDTO =
+        with(createAccountDTO) {
+            val accountType = accountTypeRepository.findById(accountTypeId)
+                .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "AccountType not found") }
 
-        val accountType = accountTypeRepository.findById(accountTypeId)
-                .orElseThrow { EntityNotFoundException("AccountType not found") }
-        val user = userRepository.findById(userId)
-                .orElseThrow { EntityNotFoundException("User not found") }
+            val user = userRepository.findById(userId)
+                .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "MidUser not found") }
 
-        // Account 엔티티 생성 및 저장
-        val account = Account(
-                name = createAccountDTO.name,
-                description = createAccountDTO.description,
-                issuer = createAccountDTO.issuer,
-                number = createAccountDTO.number,
-                interestRate = BigDecimal(createAccountDTO.interestRate),
-                withdrawalLimit = BigDecimal(createAccountDTO.withdrawalLimit),
-                accountType,
-                user
-        )
-
-        val savedAccount = accountRepository.save(account)
-        return toGetAccountDTO(savedAccount)
-    }
-
-    fun getAccounts(userId: UUID): List<GetAccountDTO> {
-        val accounts = accountRepository.findByUserId(userId)
-        return accounts.map { toGetAccountDTO(it) }
-    }
-
-    fun getAccountById(userId: UUID, accountId: UUID): GetAccountDTO {
-        val account = accountRepository.findByIdAndUserId(accountId, userId)
-                .orElseThrow { EntityNotFoundException("Account not found") }
-        return toGetAccountDTO(account)
-    }
-
-    @Transactional
-    fun updateAccount(userId: UUID, accountId: UUID, updateAccountDTO: UpdateAccountDTO): GetAccountDTO {
-        val account = accountRepository.findByIdAndUserId(accountId, userId)
-                .orElseThrow { EntityNotFoundException("Account not found") }
-
-        val updateData = updateAccountDTO.copy()
-
-        // accountTypeId가 존재할 경우 accountType을 조회하여 추가
-        if (updateAccountDTO.accountTypeId != null && account.accountType.id != updateAccountDTO.accountTypeId) {
-            val newAccountType = accountTypeRepository.findById(updateAccountDTO.accountTypeId)
-                    .orElseThrow { EntityNotFoundException("AccountType not found") }
-            account.accountType = newAccountType
+            accountRepository.save(
+                Account(
+                    name = name,
+                    description = description,
+                    issuer = issuer,
+                    number = number,
+                    interestRate = interestRate,
+                    withdrawalLimit = withdrawalLimit,
+                    accountType = accountType,
+                    user = user,
+                )
+            ).toGetAccountDTO()
         }
 
-        // 업데이트할 데이터 병합
+    // 모든 계좌 조회
+    fun getAccounts(userId: String): List<GetAccountDTO> =
+        accountRepository.findByUserId(userId).map { it.toGetAccountDTO() }
+
+    // 특정 계좌 조회
+    fun getAccountById(userId: String, accountId: String): GetAccountDTO =
+        accountRepository.findByIdAndUserId(accountId, userId)
+            .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found") }
+            .toGetAccountDTO()
+
+    // 계좌 업데이트
+    @Transactional
+    fun updateAccount(userId: String, accountId: String, updateAccountDTO: UpdateAccountDTO): GetAccountDTO {
+        val account = accountRepository.findByIdAndUserId(accountId, userId)
+            .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found") }
+
         account.apply {
-            name = updateData.name
-            description = updateData.description
-            issuer = updateData.issuer
-            number = updateData.number
-            interestRate = updateData.interestRate
-            withdrawalLimit = updateData.withdrawalLimit
+            if (accountType.id != updateAccountDTO.accountTypeId) {
+                accountTypeRepository.findById(updateAccountDTO.accountTypeId)
+                    .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "AccountType not found") }
+                    .let { accountType = it }
+            }
+            name = updateAccountDTO.name
+            description = updateAccountDTO.description
+            issuer = updateAccountDTO.issuer
+            number = updateAccountDTO.number
+            interestRate = updateAccountDTO.interestRate
+            withdrawalLimit = updateAccountDTO.withdrawalLimit
         }
 
-        val updatedAccount = accountRepository.save(account)
-        return toGetAccountDTO(updatedAccount)
+        return accountRepository.save(account).toGetAccountDTO()
     }
 
+    // 계좌 삭제
     @Transactional
-    fun deleteAccount(userId: UUID, accountId: UUID) {
-        val account = accountRepository.findByIdAndUserId(accountId, userId)
-                .orElseThrow { EntityNotFoundException("Account not found") }
-        accountRepository.delete(account)
-    }
-
-    // DTO 변환 메서드
-    private fun toGetAccountDTO(account: Account): GetAccountDTO {
-        return GetAccountDTO(
-                id = account.id,
-                name = account.name,
-                description = account.description,
-                issuer = account.issuer,
-                number = account.number,
-                interestRate = account.interestRate,
-                withdrawalLimit = account.withdrawalLimit,
-                accountTypeName = account.accountType.name,
-                createdAt = account.createdAt
-        )
+    fun deleteAccount(userId: String, accountId: String) {
+        accountRepository.findByIdAndUserId(accountId, userId)
+            .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found") }
+            .let { accountRepository.delete(it) }
     }
 }

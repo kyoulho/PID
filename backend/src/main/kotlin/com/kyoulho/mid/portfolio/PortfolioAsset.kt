@@ -1,13 +1,12 @@
 package com.kyoulho.mid.portfolio
 
 import jakarta.persistence.*
-import java.util.*
 
 @Entity
 data class PortfolioAsset(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID? = null,
+    val id: String? = null,
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "portfolio_id", nullable = false)

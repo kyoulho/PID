@@ -1,9 +1,8 @@
 package com.kyoulho.mid.user.repo
 
-import com.kyoulho.mid.user.User
+import com.kyoulho.mid.user.entity.MidUser
 import org.springframework.data.jpa.repository.JpaRepository
-import java.util.UUID
 
-interface UserRepository : JpaRepository<User, UUID> {
+interface UserRepository : JpaRepository<MidUser, String> {
 
 }

@@ -8,7 +8,7 @@ import java.util.*
 data class AssetTradingRecord(
         @Id
         @GeneratedValue(strategy = GenerationType.UUID)
-        val id: UUID? = null,
+        val id: String? = null,
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "account_id")

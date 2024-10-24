@@ -8,7 +8,7 @@ import java.util.*
 data class AssetDividendRecord(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID? = null,
+    val id: String? = null,
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "portfolio_asset_id", nullable = false)

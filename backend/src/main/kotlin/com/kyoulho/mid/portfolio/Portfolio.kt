@@ -1,17 +1,16 @@
 package com.kyoulho.mid.portfolio
 
 import com.kyoulho.mid.strategy.Strategy
-import com.kyoulho.mid.user.User
+import com.kyoulho.mid.user.entity.MidUser
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import java.time.LocalDateTime
-import java.util.*
 
 @Entity
 data class Portfolio(
         @Id
         @GeneratedValue(strategy = GenerationType.UUID)
-        val id: UUID? = null,
+        val id: String? = null,
 
         @ManyToOne(fetch = FetchType.LAZY, optional = false)
         @JoinColumn(name = "strategy_id", nullable = false)
@@ -26,5 +25,5 @@ data class Portfolio(
 
         @ManyToOne(fetch = FetchType.EAGER, optional = false)
         @JoinColumn(name = "user_id", nullable = false)
-        val user: User
+        val user: MidUser
 )
